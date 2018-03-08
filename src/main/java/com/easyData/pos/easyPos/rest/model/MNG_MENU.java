@@ -3,10 +3,12 @@
  */
 package com.easyData.pos.easyPos.rest.model;
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -22,6 +24,9 @@ public class MNG_MENU {
     @OneToOne(targetEntity = MNG_FONCTION.class)
     private MNG_FONCTION MNG_FONCTION;
 
+    @OneToMany(targetEntity = MNG_MENU.class)
+    private List<MNG_MENU> MNG_MENUs;
+
     public Long getId() {
         return this.id;
     }
@@ -36,6 +41,14 @@ public class MNG_MENU {
 
     public void setMNG_FONCTION(MNG_FONCTION MNG_FONCTION) {
         this.MNG_FONCTION = MNG_FONCTION;
+    }
+
+    public List<MNG_MENU> getMNG_MENUs() {
+        return this.MNG_MENUs;
+    }
+
+    public void setMNG_MENUs(List<MNG_MENU> MNG_MENUs) {
+        this.MNG_MENUs = MNG_MENUs;
     }
 
 }

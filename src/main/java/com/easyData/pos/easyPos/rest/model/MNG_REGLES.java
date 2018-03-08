@@ -22,8 +22,8 @@ public class MNG_REGLES implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne(targetEntity = MNG_PROFILE.class)
-    private MNG_PROFILE MNG_PROFILE;
+    @OneToOne(targetEntity = MNG_PACK.class)
+    private MNG_PACK MNG_PROFILE;
 
     @OneToOne(targetEntity = MNG_FONCTION.class)
     private MNG_FONCTION MNG_FONCTION;
@@ -36,11 +36,11 @@ public class MNG_REGLES implements Serializable {
         this.id = id;
     }
 
-    public MNG_PROFILE getMNG_PROFILE() {
+    public MNG_PACK getMNG_PROFILE() {
         return this.MNG_PROFILE;
     }
 
-    public void setMNG_PROFILE(MNG_PROFILE MNG_PROFILE) {
+    public void setMNG_PROFILE(MNG_PACK MNG_PROFILE) {
         this.MNG_PROFILE = MNG_PROFILE;
     }
 

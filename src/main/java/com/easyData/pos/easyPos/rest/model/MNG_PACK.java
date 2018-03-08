@@ -3,20 +3,17 @@
  */
 package com.easyData.pos.easyPos.rest.model;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 /**
  * @author taleb
  */
 @Entity
-@Table(name = "MNG_USER_LANG")
-public class MNG_PROFILE implements Serializable {
+public class MNG_PACK {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +21,9 @@ public class MNG_PROFILE implements Serializable {
 
     @OneToOne(targetEntity = MNG_USGROUP.class)
     private MNG_USGROUP MNG_USGROUP;
+
+    @OneToOne(targetEntity = MNG_FONCTION.class)
+    private MNG_FONCTION MNG_FONCTION;
 
     public Long getId() {
         return this.id;
@@ -39,6 +39,14 @@ public class MNG_PROFILE implements Serializable {
 
     public void setMNG_USGROUP(MNG_USGROUP MNG_USGROUP) {
         this.MNG_USGROUP = MNG_USGROUP;
+    }
+
+    public MNG_FONCTION getMNG_FONCTION() {
+        return this.MNG_FONCTION;
+    }
+
+    public void setMNG_FONCTION(MNG_FONCTION MNG_FONCTION) {
+        this.MNG_FONCTION = MNG_FONCTION;
     }
 
 }

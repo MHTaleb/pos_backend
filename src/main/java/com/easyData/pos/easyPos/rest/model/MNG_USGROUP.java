@@ -3,6 +3,7 @@
  */
 package com.easyData.pos.easyPos.rest.model;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,14 +16,14 @@ import javax.persistence.OneToOne;
  * @author taleb
  */
 @Entity
-public class MNG_USGROUP {
+public class MNG_USGROUP implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne(targetEntity = MNG_PROFILE.class, mappedBy = "MNG_USGROUP")
-    private MNG_PROFILE MNG_PROFILE;
+    @OneToOne(targetEntity = MNG_PACK.class, mappedBy = "MNG_USGROUP")
+    private MNG_PACK MNG_PACK;
 
     @OneToMany(targetEntity = MNG_USER.class)
     private List<MNG_USER> usg_users;
@@ -35,12 +36,12 @@ public class MNG_USGROUP {
         this.id = id;
     }
 
-    public MNG_PROFILE getMNG_PROFILE() {
-        return this.MNG_PROFILE;
+    public MNG_PACK getMNG_PACK() {
+        return this.MNG_PACK;
     }
 
-    public void setMNG_PROFILE(MNG_PROFILE MNG_PROFILE) {
-        this.MNG_PROFILE = MNG_PROFILE;
+    public void setMNG_PACK(MNG_PACK MNG_PACK) {
+        this.MNG_PACK = MNG_PACK;
     }
 
     public List<MNG_USER> getUsg_users() {

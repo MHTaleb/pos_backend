@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -19,6 +20,10 @@ import javax.persistence.TemporalType;
  * @author taleb
  */
 @Entity
+@NamedQuery(
+        name = "MNG_USER.doConnect",
+        query = "SELECT e FROM MNG_USER e WHERE e.us_username LIKE :us_username AND e.us_pwdusr LIKE :us_pwdusr"
+)
 @Table(name = "MNG_USER")
 public class MNG_USER implements Serializable {
 
@@ -56,6 +61,13 @@ public class MNG_USER implements Serializable {
     @Basic
     @Temporal(TemporalType.DATE)
     private Date us_datmaj;
+
+    @Basic
+    private String us_username;
+
+    @Basic
+    @Temporal(TemporalType.DATE)
+    private Date us_lastcnx;
 
     @OneToOne(targetEntity = MNG_USER_STATE.class)
     private MNG_USER_STATE us_etatusr;
@@ -153,6 +165,22 @@ public class MNG_USER implements Serializable {
 
     public void setUs_datmaj(Date us_datmaj) {
         this.us_datmaj = us_datmaj;
+    }
+
+    public String getUs_username() {
+        return this.us_username;
+    }
+
+    public void setUs_username(String us_username) {
+        this.us_username = us_username;
+    }
+
+    public Date getUs_lastcnx() {
+        return this.us_lastcnx;
+    }
+
+    public void setUs_lastcnx(Date us_lastcnx) {
+        this.us_lastcnx = us_lastcnx;
     }
 
     public MNG_USER_STATE getUs_etatusr() {

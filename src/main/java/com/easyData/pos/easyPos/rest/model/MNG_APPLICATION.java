@@ -3,20 +3,17 @@
  */
 package com.easyData.pos.easyPos.rest.model;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 /**
  * @author taleb
  */
 @Entity
-@Table(name = "MNG_APPLICATION")
-public class MNG_APPLICATION implements Serializable {
+public class MNG_APPLICATION {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
