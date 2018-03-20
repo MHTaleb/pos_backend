@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -24,7 +23,6 @@ import javax.persistence.TemporalType;
         name = "MNG_USER.doConnect",
         query = "SELECT e FROM MNG_USER e WHERE e.us_username LIKE :us_username AND e.us_pwdusr LIKE :us_pwdusr"
 )
-@Table(name = "MNG_USER")
 public class MNG_USER implements Serializable {
 
     @Id

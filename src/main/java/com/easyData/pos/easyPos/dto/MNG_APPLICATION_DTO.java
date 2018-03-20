@@ -9,6 +9,6 @@ package com.easyData.pos.easyPos.dto;
  *
  * @author taleb
  */
-public class MNG_PACK_DTO {
+public class MNG_APPLICATION_DTO {
     
 }

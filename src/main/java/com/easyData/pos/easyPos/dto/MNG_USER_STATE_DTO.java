@@ -9,6 +9,19 @@ package com.easyData.pos.easyPos.dto;
  *
  * @author taleb
  */
-class MNG_USER_STATE_DTO {
+public class MNG_USER_STATE_DTO {
+    private boolean active;
+
+    public MNG_USER_STATE_DTO() {
+    }
+
+    
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
     
 }

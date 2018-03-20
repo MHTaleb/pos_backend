@@ -15,7 +15,6 @@ import javax.persistence.Table;
  * @author taleb
  */
 @Entity
-@Table(name = "MNG_USER_LANG")
 public class MNG_REGLES implements Serializable {
 
     @Id

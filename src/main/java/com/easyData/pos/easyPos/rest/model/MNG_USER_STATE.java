@@ -4,6 +4,7 @@
 package com.easyData.pos.easyPos.rest.model;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,12 +15,14 @@ import javax.persistence.Table;
  * @author taleb
  */
 @Entity
-@Table(name = "MNG_USER_LANG")
 public class MNG_USER_STATE implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Basic
+    private boolean active;
 
     public Long getId() {
         return this.id;
@@ -27,6 +30,14 @@ public class MNG_USER_STATE implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isActive() {
+        return this.active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
 }

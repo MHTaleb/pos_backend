@@ -14,7 +14,6 @@ import javax.persistence.Table;
  * @author taleb
  */
 @Entity
-@Table(name = "MNG_USER_LANG")
 public class MNG_NIVEAU_ACCEE implements Serializable {
 
     @Id
