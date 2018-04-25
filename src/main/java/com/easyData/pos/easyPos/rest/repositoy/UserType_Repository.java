@@ -5,7 +5,7 @@
  */
 package com.easyData.pos.easyPos.rest.repositoy;
 
-import com.easyData.pos.easyPos.rest.model.MNG_USER_TYPE;
+import com.easyData.pos.easyPos.rest.model.aoth.MNG_USER_TYPE;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

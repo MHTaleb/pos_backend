@@ -5,18 +5,29 @@
  */
 package com.easyData.pos.easyPos.rest.contoller;
 
+import com.easyData.pos.easyPos.rest.contoller.tools.HttpSessionVars;
+import com.easyData.pos.easyPos.rest.contoller.tools.RequestParamVars;
+import com.easyData.pos.easyPos.dto.EasyDataSecuritySequencer;
+import com.easyData.pos.easyPos.rest.metier.AppService;
+import com.easyData.pos.easyPos.dto.MNG_APPLICATION_DTO;
 import com.easyData.pos.easyPos.dto.MNG_USER_DTO;
 import com.easyData.pos.easyPos.dto.MNG_USER_STATE_DTO;
-import com.easyData.pos.easyPos.rest.model.MNG_USER;
+import com.easyData.pos.easyPos.dto.ServerResponse;
+import com.easyData.pos.easyPos.rest.model.component.MNG_COMPOSANT_DATA;
+import com.easyData.pos.easyPos.rest.model.aoth.MNG_USER;
+import com.easyData.pos.easyPos.rest.repositoy.ApplicationRepository;
 import com.easyData.pos.easyPos.rest.repositoy.UserRepository;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -30,88 +41,127 @@ public class LoginController {
     public static final String SERVICE_URI = "/logins";
 
     @Autowired
+    private HttpSessionVars httpSessionVars;
+
+    @Autowired
+    private HttpSession httpSession;
+
+    @Autowired
+    private AppService appService;
+
+    @Autowired
     private UserRepository repository;
 
-    @RequestMapping(value = "/put", method = RequestMethod.POST)
-    public Long register(
-            @RequestParam final String us_username,
-            @RequestParam final String us_pwdusr,
-            @RequestParam final String us_cextusr,
-            @RequestParam final String us_nomusr,
-            @RequestParam final String us_prnusr,
-            @RequestParam final Date us_datdeb,
-            @RequestParam final Date us_datfin,
-            @RequestParam final Long us_etatusr,
-            @RequestParam final Long us_langue,
-            @RequestParam final Long us_lastuser,
-            @RequestParam final Long us_typusr,
-            @RequestParam final Long us_lastprg,
-            @RequestParam final Long us_nivacc
-    ) {
+    @Autowired
+    private ServerResponse serverResponse;
 
-        if (isFineParam(us_username, us_pwdusr, us_cextusr, us_nomusr, us_prnusr, us_prnusr, us_datdeb, us_datfin, us_etatusr, us_langue, us_lastuser, us_typusr, us_lastprg, us_nivacc)) {
+    @Autowired
+    private EasyDataSecuritySequencer dataSecuritySequencer;
 
-            MNG_USER mng_user = new MNG_USER();
-            mng_user.setUs_cextusr(us_cextusr);
-            Date us_datcre = Date.from(Instant.now());
-            mng_user.setUs_datcre(us_datcre);
-            mng_user.setUs_datdeb(us_datdeb);
-            mng_user.setUs_datfin(us_datfin);
-            mng_user.setUs_datmaj(us_datcre);
-            mng_user.setUs_nbrerr(0);
-            mng_user.setUs_nomusr(us_nomusr);
-            mng_user.setUs_prnusr(us_prnusr);
-            mng_user.setUs_pwdusr(us_pwdusr);
-            mng_user.setUs_username(us_username);
-            repository.save(mng_user);
+    @Autowired
+    private ApplicationRepository applicationRepository;
 
-            return mng_user.getUs_usrint();
-
-        }
-        return new Long(-1);
+//    @RequestMapping(value = "/", method = RequestMethod.POST)
+//    public Long register(
+//            @RequestParam final String us_username,
+//            @RequestParam final String us_pwdusr,
+//            @RequestParam final String us_cextusr,
+//            @RequestParam final String us_nomusr,
+//            @RequestParam final String us_prnusr,
+//            @RequestParam final Date us_datdeb,
+//            @RequestParam final Date us_datfin,
+//            @RequestParam final Long us_etatusr,
+//            @RequestParam final Long us_langue,
+//            @RequestParam final Long us_lastuser,
+//            @RequestParam final Long us_typusr,
+//            @RequestParam final Long us_lastprg,
+//            @RequestParam final Long us_nivacc
+//    ) {
+//
+//        if (isFineParam(us_username, us_pwdusr, us_cextusr, us_nomusr, us_prnusr, us_prnusr, us_datdeb, us_datfin, us_etatusr, us_langue, us_lastuser, us_typusr, us_lastprg, us_nivacc)) {
+//
+//            MNG_USER mng_user = new MNG_USER();
+//            mng_user.setCode_externe(us_cextusr);
+//            Date us_datcre = Date.from(Instant.now());
+//            mng_user.setDateCreation(us_datcre);
+//            mng_user.setDateDebut(us_datdeb);
+//            mng_user.setDateFin(us_datfin);
+//            mng_user.setDateMiseAJour(us_datcre);
+//            mng_user.setNombreErreur(0);
+//            mng_user.setNom(us_nomusr);
+//            mng_user.setPrenom(us_prnusr);
+//            mng_user.setPassword(us_pwdusr);
+//            mng_user.setUtilisateur(us_username);
+//            repository.save(mng_user);
+//
+//            return mng_user.getId();
+//
+//        }
+//        return new Long(-1);
+//    }
+    
+    
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void logout(HttpSession session) {
+        session.invalidate();
     }
+    
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ServerResponse<MNG_USER_DTO> connecte(
+            @RequestParam(name = RequestParamVars.USERNAME) final String us_username,
+            @RequestParam(name = RequestParamVars.PASSWORD) final String us_pwdusr) {
 
-    @RequestMapping(value = "/get", method = RequestMethod.POST)
-    public List<MNG_USER_DTO> connecte(
-            @RequestParam(name = "us_username") final String us_username,
-            @RequestParam(name = "us_pwdusr") final String us_pwdusr
-    ) {
+        System.out.println("username " + us_username);
+        System.out.println("password " + us_pwdusr);
 
-        System.out.println("username "+us_username);
-        System.out.println("password "+us_pwdusr);
-        
-        // preparation du dto de reponse
-        List<MNG_USER_DTO> responses = new ArrayList<>();
         // recuperation du compte
-        List<MNG_USER> users = repository.doConnect(us_username, us_pwdusr);
+        MNG_USER user = repository.doConnect(us_username, us_pwdusr);
 
         //l'ensemble des condition pre requise pour un user
         //verifier que la lecture est bien passé
-        users.stream().map((user) -> {
-            MNG_USER_DTO response = new MNG_USER_DTO();
-            if (checkUserFetched(user, us_username, us_pwdusr)) // verifier que le user exist
-            {
-                if (checkUserDataWellFormed(user)) {
-                    // get all needed user information from usertable
-                    response.setUs_cextusr(user.getUs_cextusr());
-                    response.setUs_datfin(user.getUs_datfin());
-                    response.setUs_prnusr(user.getUs_prnusr());
-                    
-                    final MNG_USER_STATE_DTO mng_user_state_dto = new MNG_USER_STATE_DTO();
-                    mng_user_state_dto.setActive(true);
-                    response.setUs_etatusr(mng_user_state_dto);
-                    
-                    // get all needed apps informations
-                    // get security sequence number
-                    // create spring session
-                }
+        MNG_USER_DTO response = new MNG_USER_DTO();
+        if (checkUserFetched(user, us_username, us_pwdusr)) // verifier que le user exist
+        {
+            if (checkUserDataWellFormed(user)) {
+
+                httpSession.getServletContext().setAttribute(httpSessionVars.CURRENT_USER, user);
+
+                System.out.println(httpSession.getAttribute(httpSessionVars.CURRENT_USER));
+
+                serverResponse.setMessage("success");
+
+                // get all needed user information from usertable
+                response.setUs_cextusr(user.getCode_externe());
+                response.setUs_datfin(user.getDateFin());
+                response.setUs_prnusr(user.getPrenom());
+                response.setUs_nomusr(user.getNom());
+                response.setUs_usrint(user.getId());
+
+                final MNG_USER_STATE_DTO mng_user_state_dto = new MNG_USER_STATE_DTO();
+                mng_user_state_dto.setActive(true);
+                response.setUs_etatusr(mng_user_state_dto);
+
+                // get all needed apps informations
+                List<MNG_APPLICATION_DTO> us_applications = new ArrayList<>();
+                appService.getFormatedApps(user.getId()).stream().forEach(app -> {
+                    Predicate<? super MNG_COMPOSANT_DATA> prdct = prd -> {
+                        return prd.getCmp_attr_code().toUpperCase().equals("TITRE");
+                    };
+                    us_applications.add(new MNG_APPLICATION_DTO(app.getCmp_datas().stream().filter(prdct).findFirst().get().getCmp_attr_value(), app.getId()));
+                });
+
+                response.setUs_applications(us_applications);
+
             }
-            return response;
-        }).forEachOrdered((response) -> {
-            responses.add(response);
-        });
+        }
+        System.out.println("response fetched : " + response);
+
+        System.out.println("response to client : " + response);
         //le post traitement mise a jour metier
-        return responses;
+        serverResponse.setContent(response);
+
+        return serverResponse;
     }
 
     private boolean checkUserFetched(MNG_USER user, String username, String password) {

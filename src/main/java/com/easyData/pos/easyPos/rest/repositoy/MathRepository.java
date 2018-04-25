@@ -5,7 +5,7 @@
  */
 package com.easyData.pos.easyPos.rest.repositoy;
 
-import com.easyData.pos.easyPos.rest.model.aoth.MNG_USER_LANG;
+import com.easyData.pos.easyPos.rest.model.MathFunctionModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
  * @author taleb
  */
 @Repository
-public interface UserLangRepository extends JpaRepository<MNG_USER_LANG, Long>{
+public interface MathRepository extends JpaRepository<MathFunctionModel, Long>{
+    
     
 }

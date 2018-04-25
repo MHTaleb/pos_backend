@@ -5,7 +5,7 @@
  */
 package com.easyData.pos.easyPos.rest.repositoy;
 
-import com.easyData.pos.easyPos.rest.model.MNG_APPLICATION;
+import com.easyData.pos.easyPos.rest.model.component.v1.MNG_APPLICATION;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ApplicationRepository extends JpaRepository<MNG_APPLICATION, Long> {
-    
+   // public List<MNG_APPLICATION> findByUser(@Param("user") final MNG_USER user);
 }

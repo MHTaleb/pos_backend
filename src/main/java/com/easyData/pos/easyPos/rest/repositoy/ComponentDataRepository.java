@@ -5,8 +5,10 @@
  */
 package com.easyData.pos.easyPos.rest.repositoy;
 
-import com.easyData.pos.easyPos.rest.model.aoth.MNG_USER_LANG;
+import com.easyData.pos.easyPos.rest.model.component.MNG_COMPOSANT_DATA;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,6 +16,6 @@ import org.springframework.stereotype.Repository;
  * @author taleb
  */
 @Repository
-public interface UserLangRepository extends JpaRepository<MNG_USER_LANG, Long>{
-    
+public interface ComponentDataRepository extends JpaRepository<MNG_COMPOSANT_DATA, Long>{
+    public List<MNG_COMPOSANT_DATA> findByIds(@Param("ids") List<Long> ids);
 }
