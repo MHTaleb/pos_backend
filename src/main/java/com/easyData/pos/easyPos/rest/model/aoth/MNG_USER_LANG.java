@@ -4,11 +4,11 @@
 package com.easyData.pos.easyPos.rest.model.aoth;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  * @author taleb
@@ -20,6 +20,25 @@ public class MNG_USER_LANG implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Basic
+    private String code;
+
+    public MNG_USER_LANG() {
+    }
+
+    public MNG_USER_LANG(Long id, String code) {
+        this.id = id;
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+    
     public Long getId() {
         return this.id;
     }
@@ -27,6 +46,13 @@ public class MNG_USER_LANG implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "MNG_USER_LANG{" + "id=" + id + ", code=" + code + '}';
+    }
+    
+    
 
 }
 

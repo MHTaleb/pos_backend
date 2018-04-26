@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,12 +21,32 @@ public class MNG_PROGRAM implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String programName;
+    
     public Long getId() {
         return this.id;
     }
-
+    
     public void setId(Long id) {
         this.id = id;
     }
 
+    public MNG_PROGRAM() {
+    }
+
+    public MNG_PROGRAM(Long id, String programName) {
+        this.id = id;
+        this.programName = programName;
+    }
+
+    public String getProgramName() {
+        return programName;
+    }
+
+    public void setProgramName(String programName) {
+        this.programName = programName;
+    }
+
+    
+    
 }

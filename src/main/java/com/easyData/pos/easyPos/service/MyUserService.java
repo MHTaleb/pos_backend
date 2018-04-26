@@ -5,6 +5,7 @@
  */
 package com.easyData.pos.easyPos.service;
 
+import com.easyData.pos.easyPos.rest.model.Role;
 import com.easyData.pos.easyPos.rest.model.aoth.MNG_NIVEAU_ACCEE;
 import com.easyData.pos.easyPos.rest.model.aoth.MNG_USER;
 import com.easyData.pos.easyPos.rest.repositoy.UserRepository;
@@ -40,8 +41,16 @@ public class MyUserService implements UserDetailsService{
         final ArrayList<GrantedAuthority> authorities = new ArrayList<>();
         
         MNG_NIVEAU_ACCEE niveauAcces = user.getNiveauAcces();
-        System.out.println("role : "+niveauAcces.getRole().toString());
-        authorities.add(new SimpleGrantedAuthority(niveauAcces.getRole().toString()));
+        System.out.println("role : "+niveauAcces.getRoles().toString());
+        for (Role role : niveauAcces.getRoles()) {
+            System.out.println("role "+role);
+            authorities.add(
+                    new SimpleGrantedAuthority(
+                            role.toString()
+                    )
+            );
+            
+        }
         boolean active = user.getEtatUtilisateur().isActive();
         String role_active = (active)?"ROLE_ACTIVE":"ROLE_INACTIVE";
         System.out.println("role : "+role_active);

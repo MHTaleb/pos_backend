@@ -31,18 +31,21 @@ public class UsersController {
     
     @Autowired
     private HttpSession httpSession;
+   
     @Autowired
     private HttpSessionVars httpSessionVars;
     
     @Autowired
     private ServerResponse serverResponse;
+   
+    
     @RequestMapping(value = "/{user_id}",method = RequestMethod.PUT)
     private ServerResponse updateUser(@PathVariable("user_id") final Long userID,
             @RequestParam("usr_nom") final String nom,
             @RequestParam("usr_prn") final String prenom,
             @RequestParam("usr_username") final String username,
             @RequestParam("usr_pwd") final String password){
-        
+        System.out.println("receiving request");
         if(isSessionValid()){
             System.out.println("update password is : "+password);
             MNG_USER mng_user = userRepo.findById(userID).get();
@@ -61,7 +64,7 @@ public class UsersController {
     private boolean isSessionValid() {
         
         System.out.println("to be implemented UsersController.isSessionValid");
-        System.out.println(httpSession.getServletContext().getAttribute(httpSessionVars.CURRENT_USER));
+        System.out.println("current user is "+httpSession.getServletContext().getAttribute(httpSessionVars.CURRENT_USER));
         return httpSession.getServletContext().getAttribute(httpSessionVars.CURRENT_USER) != null;
     }
     

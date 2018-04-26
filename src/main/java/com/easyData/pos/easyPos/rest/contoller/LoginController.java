@@ -5,6 +5,7 @@
  */
 package com.easyData.pos.easyPos.rest.contoller;
 
+import com.easyData.pos.easyPos.GenericController;
 import com.easyData.pos.easyPos.rest.contoller.tools.HttpSessionVars;
 import com.easyData.pos.easyPos.rest.contoller.tools.RequestParamVars;
 import com.easyData.pos.easyPos.dto.EasyDataSecuritySequencer;
@@ -36,71 +37,20 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(LoginController.SERVICE_URI)
-public class LoginController {
+public class LoginController extends GenericController {
 
     public static final String SERVICE_URI = "/logins";
 
-    @Autowired
-    private HttpSessionVars httpSessionVars;
-
-    @Autowired
-    private HttpSession httpSession;
-
+  
     @Autowired
     private AppService appService;
 
     @Autowired
     private UserRepository repository;
 
-    @Autowired
-    private ServerResponse serverResponse;
 
-    @Autowired
-    private EasyDataSecuritySequencer dataSecuritySequencer;
 
-    @Autowired
-    private ApplicationRepository applicationRepository;
 
-//    @RequestMapping(value = "/", method = RequestMethod.POST)
-//    public Long register(
-//            @RequestParam final String us_username,
-//            @RequestParam final String us_pwdusr,
-//            @RequestParam final String us_cextusr,
-//            @RequestParam final String us_nomusr,
-//            @RequestParam final String us_prnusr,
-//            @RequestParam final Date us_datdeb,
-//            @RequestParam final Date us_datfin,
-//            @RequestParam final Long us_etatusr,
-//            @RequestParam final Long us_langue,
-//            @RequestParam final Long us_lastuser,
-//            @RequestParam final Long us_typusr,
-//            @RequestParam final Long us_lastprg,
-//            @RequestParam final Long us_nivacc
-//    ) {
-//
-//        if (isFineParam(us_username, us_pwdusr, us_cextusr, us_nomusr, us_prnusr, us_prnusr, us_datdeb, us_datfin, us_etatusr, us_langue, us_lastuser, us_typusr, us_lastprg, us_nivacc)) {
-//
-//            MNG_USER mng_user = new MNG_USER();
-//            mng_user.setCode_externe(us_cextusr);
-//            Date us_datcre = Date.from(Instant.now());
-//            mng_user.setDateCreation(us_datcre);
-//            mng_user.setDateDebut(us_datdeb);
-//            mng_user.setDateFin(us_datfin);
-//            mng_user.setDateMiseAJour(us_datcre);
-//            mng_user.setNombreErreur(0);
-//            mng_user.setNom(us_nomusr);
-//            mng_user.setPrenom(us_prnusr);
-//            mng_user.setPassword(us_pwdusr);
-//            mng_user.setUtilisateur(us_username);
-//            repository.save(mng_user);
-//
-//            return mng_user.getId();
-//
-//        }
-//        return new Long(-1);
-//    }
-    
-    
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void logout(HttpSession session) {

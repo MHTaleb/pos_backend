@@ -12,16 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.Context;
-import org.apache.catalina.connector.Connector;
-import org.apache.coyote.http11.AbstractHttp11Protocol;
-import org.apache.tomcat.util.descriptor.web.SecurityCollection;
-import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +33,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 import org.springframework.security.web.savedrequest.NullRequestCache;
 
@@ -64,6 +54,9 @@ public class ServerConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
+    private SpringAuthenticationSuccessHandler authenticationSuccessHandler;
+
+    @Autowired
     private AccessDeniedHandler accessDeniedHandler;
 
     @Override
@@ -73,15 +66,13 @@ public class ServerConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //    .csrf().disable()
-        http
-                .exceptionHandling()
+        http.exceptionHandling()
                 .authenticationEntryPoint(new Http401AuthenticationEntryPoint("App header"))
                 .and()
                 .authenticationProvider(getProvider())
                 .formLogin()
                 .loginProcessingUrl("/logins/login")
-                .successHandler(new SimpleUrlAuthenticationSuccessHandler())
+                .successHandler(authenticationSuccessHandler)
                 .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .and().httpBasic();
 
@@ -92,12 +83,16 @@ public class ServerConfig extends WebSecurityConfigurerAdapter {
                 .and().httpBasic();
         http.authorizeRequests()
                 .antMatchers("/docs").hasAnyRole(Role.USER.name(), Role.ADMIN.toString())
+                .antMatchers("/acl").hasAnyRole(Role.ADMIN.toString())
                 .antMatchers("/logins/login").permitAll()
                 .antMatchers("/logout").permitAll()
                 .anyRequest().authenticated().and()
                 .requestCache()
                 .requestCache(new NullRequestCache())
                 .and().httpBasic();
+        http
+                .csrf().disable();
+                //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 
         System.out.println(" 1 : " + Role.USER.name() + "   ---   " + Role.USER.toString());
     }
@@ -159,6 +154,5 @@ public class ServerConfig extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(userDetailsService);
         return provider;
     }
-
 
 }

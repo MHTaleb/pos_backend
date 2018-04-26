@@ -5,9 +5,12 @@ package com.easyData.pos.easyPos.rest.model.aoth;
 
 import com.easyData.pos.easyPos.rest.model.Role;
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,15 +27,25 @@ public class MNG_NIVEAU_ACCEE implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Enumerated(value = EnumType.ORDINAL)
-    private Role role;
+    // to refactor and improve
+    @ElementCollection(targetClass = Role.class,fetch = FetchType.EAGER)
+    @Enumerated(value = EnumType.STRING)
+    private Collection<Role> roles;
 
     public MNG_NIVEAU_ACCEE() {
     }
 
-    public MNG_NIVEAU_ACCEE(Long id, Role role) {
+    public MNG_NIVEAU_ACCEE(Long id, Collection<Role> roles) {
         this.id = id;
-        this.role = role;
+        this.roles = roles;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
     
     public Long getId() {
@@ -41,14 +54,6 @@ public class MNG_NIVEAU_ACCEE implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     
