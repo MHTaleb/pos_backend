@@ -48,6 +48,15 @@ public class LoginController extends GenericController {
     @Autowired
     private UserRepository repository;
 
+    
+    /**
+     * I have to reimplement to use services ( my design is not flexible and not easely upgradable ) I should use encapsulationI have to add
+     *      .user service implementation
+     *      .application service implementation
+     *      .server service implementation : here i should delegate user sesison registration to this service method(registerUser)
+     *          this will help me check licence of the user over the server
+     */
+    
 
 
 

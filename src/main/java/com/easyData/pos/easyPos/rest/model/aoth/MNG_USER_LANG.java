@@ -4,7 +4,7 @@
 package com.easyData.pos.easyPos.rest.model.aoth;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +20,7 @@ public class MNG_USER_LANG implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Basic
+    @Column(unique = true)
     private String code;
 
     public MNG_USER_LANG() {

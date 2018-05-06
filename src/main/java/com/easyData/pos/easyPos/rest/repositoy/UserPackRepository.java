@@ -6,7 +6,9 @@
 package com.easyData.pos.easyPos.rest.repositoy;
 
 import com.easyData.pos.easyPos.rest.model.aoth.MNG_PACK;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,5 +17,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserPackRepository extends JpaRepository<MNG_PACK, Long>{
+    
+    public List<MNG_PACK> findAllByIds(@Param("ids") final List<Long> ids);
     
 }

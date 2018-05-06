@@ -8,6 +8,7 @@ package com.easyData.pos.easyPos;
 import com.easyData.pos.easyPos.dto.EasyDataSecuritySequencer;
 import com.easyData.pos.easyPos.dto.ServerResponse;
 import com.easyData.pos.easyPos.rest.contoller.tools.HttpSessionVars;
+import com.easyData.pos.easyPos.rest.model.aoth.MNG_USER;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,7 +31,11 @@ public class GenericController {
 
     @Autowired
     protected EasyDataSecuritySequencer dataSecuritySequencer;
-
+    
+    protected MNG_USER getCurrentUser(){
+        
+        return (MNG_USER) httpSession.getServletContext().getAttribute(httpSessionVars.CURRENT_USER) ;
+    }
     
     
     
@@ -47,6 +52,10 @@ public class GenericController {
         // add security handshake using easydatasequecer
     }
     
+    protected void initFailResponse(final String content){
+        serverResponse.setContent(content);
+        serverResponse.setMessage("failure");
+    }
     protected void initFailLoginResponse(){
         serverResponse.setContent("you should be logged in");
         serverResponse.setMessage("failure");

@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +19,9 @@ import org.springframework.stereotype.Component;
  * @author taleb
  */
 @Entity
+@NamedQueries({
+  @NamedQuery(name = "MNG_PACK.findAllByIds" , query = "SELECT e FROM MNG_PACK e WHERE e.id IN :ids ")  
+})
 @Component
 public class MNG_PACK implements Serializable {
 

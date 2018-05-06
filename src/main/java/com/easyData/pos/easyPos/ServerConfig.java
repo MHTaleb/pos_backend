@@ -77,7 +77,7 @@ public class ServerConfig extends WebSecurityConfigurerAdapter {
                 .and().httpBasic();
 
         http.logout()
-                .logoutUrl("/logout")
+                .logoutUrl("/logins/logout")
                 .logoutSuccessHandler(new AuthentificationLogoutSuccessHandler())
                 .invalidateHttpSession(true)
                 .and().httpBasic();
@@ -85,7 +85,7 @@ public class ServerConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/docs").hasAnyRole(Role.USER.name(), Role.ADMIN.toString())
                 .antMatchers("/acl").hasAnyRole(Role.ADMIN.toString())
                 .antMatchers("/logins/login").permitAll()
-                .antMatchers("/logout").permitAll()
+                .antMatchers("/logins/logout").permitAll()
                 .anyRequest().authenticated().and()
                 .requestCache()
                 .requestCache(new NullRequestCache())

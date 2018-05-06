@@ -5,14 +5,21 @@
  */
 package com.easyData.pos.easyPos.rest.model;
 
+import org.springframework.security.core.GrantedAuthority;
+
 /**
  * this enum is finally a class param that defines all user roles enabled over spring boot security ant path
  * @author taleb
  */
 
-public enum Role {
+public enum Role implements GrantedAuthority{
     ADMIN,USER,CLIENT,OTHER;
     
+    
+    @Override
+    public String getAuthority() {
+        return "ROLE_"+this.name();
+    }
     
     @Override
     public String toString() {
