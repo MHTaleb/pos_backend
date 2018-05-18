@@ -41,7 +41,7 @@ public class GenericController {
     
     protected boolean isSessionValid() {
 
-        System.out.println("to be implemented UsersController.isSessionValid");
+        
         System.out.println("current user is " + httpSession.getServletContext().getAttribute(httpSessionVars.CURRENT_USER));
         return httpSession.getServletContext().getAttribute(httpSessionVars.CURRENT_USER) != null;
     }

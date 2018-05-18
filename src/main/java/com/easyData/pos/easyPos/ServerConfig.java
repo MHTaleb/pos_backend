@@ -82,8 +82,8 @@ public class ServerConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .and().httpBasic();
         http.authorizeRequests()
-                .antMatchers("/docs").hasAnyRole(Role.USER.name(), Role.ADMIN.toString())
-                .antMatchers("/acl").hasAnyRole(Role.ADMIN.toString())
+                //.antMatchers("/docs").hasAnyRole(Role.USER.name(), Role.ADMIN.toString())
+                //.antMatchers("/acl").hasAnyRole(Role.ADMIN.toString())
                 .antMatchers("/logins/login").permitAll()
                 .antMatchers("/logins/logout").permitAll()
                 .anyRequest().authenticated().and()
@@ -139,6 +139,8 @@ public class ServerConfig extends WebSecurityConfigurerAdapter {
         }
     }
 
+    
+    
     private class AuthentificationLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 
         @Override

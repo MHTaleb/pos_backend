@@ -68,7 +68,7 @@ public class LanguageController extends GenericController{
     }
     
     
-    @GetMapping("/{lang_id}")
+    @GetMapping(params = "id")
       private ServerResponse getLanguage(
             @RequestParam("id") Long id
     ){
@@ -110,7 +110,7 @@ public class LanguageController extends GenericController{
     
     @DeleteMapping
      private ServerResponse deleteLanguage(
-            @RequestParam("id") Long id
+            @RequestParam("id_langue") Long id_langue
     ){
         System.out.println("updating langue");
         if(!isSessionValid()){
@@ -119,7 +119,7 @@ public class LanguageController extends GenericController{
             return serverResponse;
         }
         
-        langRepository.deleteById(id);
+        langRepository.deleteById(id_langue);
         
         initSuccessResponse("deleted successfully");
         return serverResponse;

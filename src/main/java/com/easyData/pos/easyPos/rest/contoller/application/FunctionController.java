@@ -5,6 +5,7 @@
  */
 package com.easyData.pos.easyPos.rest.contoller.application;
 
+import com.easyData.pos.easyPos.annotation.security.AdminSecured;
 import com.easyData.pos.easyPos.rest.contoller.tools.HttpSessionVars;
 import com.easyData.pos.easyPos.dto.ServerResponse;
 import com.easyData.pos.easyPos.rest.contoller.tools.RequestParamVars;
@@ -148,7 +149,7 @@ public class FunctionController {
         return serverResponse;
     }
     
-   
+    
     @GetMapping
     private ServerResponse getFunction(
             @PathVariable(RequestPathVars.ID_COMPOSANT) Long ID_COMPOSANT

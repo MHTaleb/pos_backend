@@ -6,6 +6,7 @@ package com.easyData.pos.easyPos.rest.model.aoth;
 import com.easyData.pos.easyPos.rest.model.Role;
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -27,6 +28,9 @@ public class MNG_NIVEAU_ACCEE implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    @Column(unique = true)
+    private String aclTitle;
+    
     // to refactor and improve
     @ElementCollection(targetClass = Role.class,fetch = FetchType.EAGER)
     @Enumerated(value = EnumType.STRING)
@@ -35,15 +39,28 @@ public class MNG_NIVEAU_ACCEE implements Serializable {
     public MNG_NIVEAU_ACCEE() {
     }
 
-    public MNG_NIVEAU_ACCEE(Long id, Collection<Role> roles) {
+    public MNG_NIVEAU_ACCEE(Long id, String roleTitle, Collection<Role> roles) {
         this.id = id;
+        this.aclTitle = roleTitle;
         this.roles = roles;
     }
+
+   
 
     public Collection<Role> getRoles() {
         return roles;
     }
 
+    public void setAclTitle(String aclTitle) {
+        this.aclTitle = aclTitle;
+    }
+
+    public String getAclTitle() {
+        return aclTitle;
+    }
+
+    
+    
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }

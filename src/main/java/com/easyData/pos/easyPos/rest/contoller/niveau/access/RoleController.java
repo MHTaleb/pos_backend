@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -27,18 +28,37 @@ public class RoleController extends GenericController {
 
     @GetMapping
     private ServerResponse getRoles() {
+        
         if (isSessionValid()) {
 
             List<Role> Roles;
             Roles = new ArrayList(Arrays.asList(Role.values()));
-            serverResponse.setContent(Roles);
-            serverResponse.setMessage("success");
-
+            initSuccessResponse(Roles);
             return serverResponse;
         }
-        serverResponse.setContent("you should be logged");
-        serverResponse.setMessage("failure");
+        initFailLoginResponse();
         return serverResponse;
     }
+    
+    
+
+    @GetMapping(params = "id")
+    private ServerResponse getRole(
+            @RequestParam Long id 
+    ) {
+        
+        if (isSessionValid()) {
+           
+            List<Role> Roles;
+            Roles = new ArrayList(Arrays.asList(Role.values()[id.intValue()]));
+            initSuccessResponse(Roles);
+            return serverResponse;
+        }
+        initFailLoginResponse();
+        return serverResponse;
+    }
+    
+    
+    
 
 }

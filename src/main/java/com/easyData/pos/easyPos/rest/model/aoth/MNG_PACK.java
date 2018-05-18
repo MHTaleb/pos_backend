@@ -6,6 +6,7 @@ package com.easyData.pos.easyPos.rest.model.aoth;
 import com.easyData.pos.easyPos.rest.model.component.MNG_COMPOSANT;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +30,9 @@ public class MNG_PACK implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(unique = true)
+    private String packName;
+    
     @OneToMany(targetEntity = MNG_COMPOSANT.class)
     private List<MNG_COMPOSANT> mng_composants;
 
@@ -40,6 +44,15 @@ public class MNG_PACK implements Serializable {
         this.id = id;
     }
 
+    public void setPackName(String packName) {
+        this.packName = packName;
+    }
+
+    public String getPackName() {
+        return packName;
+    }
+
+    
     public List<MNG_COMPOSANT> getMng_composants() {
         return this.mng_composants;
     }

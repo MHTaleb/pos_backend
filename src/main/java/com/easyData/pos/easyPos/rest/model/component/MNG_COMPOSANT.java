@@ -35,7 +35,7 @@ import org.springframework.stereotype.Component;
                         + "SELECT 1 FROM e.MNG_PACKs d "
                         + "WHERE c MEMBER OF d.mng_composants ) )"),
     
-    @NamedQuery(name = "MNG_COMPOSANT.findAppByUserID", query = ""
+    @NamedQuery(name = "MNG_COMPOSANT.findComponentByUserIdAndComponentType", query = ""
             + "SELECT c FROM MNG_COMPOSANT c "
                 + "WHERE c.cmp_type = :type "
                 + "AND EXISTS ( "
@@ -44,7 +44,16 @@ import org.springframework.stereotype.Component;
                     + "AND EXISTS ( "
                         + "SELECT 1 FROM e.MNG_PACKs d "
                         + "WHERE c MEMBER OF d.mng_composants ) )"),
-    @NamedQuery(name = "MNG_COMPOSANT.findByComponentIds",query = "SELECT e FROM MNG_COMPOSANT e WHERE e.id IN :cids")
+    @NamedQuery(name = "MNG_COMPOSANT.findByComponentIds",query = "SELECT e FROM MNG_COMPOSANT e WHERE e.id IN :cids"),
+    @NamedQuery(name = "MNG_COMPOSANT.findAllByComponentType",query = "SELECT e FROM MNG_COMPOSANT e WHERE e.cmp_type = :mng_composant_type"),
+    @NamedQuery(name = "MNG_COMPOSANT.findAllByUser",query = ""
+            + "SELECT c FROM MNG_COMPOSANT c "
+                + "WHERE EXISTS ( "
+                    + "SELECT e FROM MNG_USER e "
+                    + "WHERE e.id = :userID "
+                    + "AND EXISTS ( "
+                        + "SELECT 1 FROM e.MNG_PACKs d "
+                        + "WHERE c MEMBER OF d.mng_composants ) )")
         
 })
 

@@ -9,7 +9,7 @@ import com.easyData.pos.easyPos.GenericController;
 import com.easyData.pos.easyPos.rest.contoller.tools.HttpSessionVars;
 import com.easyData.pos.easyPos.rest.contoller.tools.RequestParamVars;
 import com.easyData.pos.easyPos.dto.EasyDataSecuritySequencer;
-import com.easyData.pos.easyPos.rest.metier.AppService;
+import com.easyData.pos.easyPos.service.ComponentService;
 import com.easyData.pos.easyPos.dto.MNG_APPLICATION_DTO;
 import com.easyData.pos.easyPos.dto.MNG_USER_DTO;
 import com.easyData.pos.easyPos.dto.MNG_USER_STATE_DTO;
@@ -43,7 +43,7 @@ public class LoginController extends GenericController {
 
   
     @Autowired
-    private AppService appService;
+    private ComponentService appService;
 
     @Autowired
     private UserRepository repository;

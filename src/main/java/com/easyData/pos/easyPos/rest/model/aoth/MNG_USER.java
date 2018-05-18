@@ -82,8 +82,8 @@ public class MNG_USER implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date lastConnexion;
 
-    @OneToOne(targetEntity = MNG_USER_STATE.class)
-    private MNG_USER_STATE etatUtilisateur;
+    @Basic
+    private boolean etatUtilisateur;
 
     @Column(name = "us_langue")
     private MNG_USER_LANG langueUtilisateur;
@@ -199,13 +199,15 @@ public class MNG_USER implements Serializable {
         this.lastConnexion = lastConnexion;
     }
 
-    public MNG_USER_STATE getEtatUtilisateur() {
-        return this.etatUtilisateur;
+    public boolean isEtatUtilisateur() {
+        return etatUtilisateur;
     }
 
-    public void setEtatUtilisateur(MNG_USER_STATE etatUtilisateur) {
+    public void setEtatUtilisateur(boolean etatUtilisateur) {
         this.etatUtilisateur = etatUtilisateur;
     }
+
+    
 
     public MNG_USER_LANG getLangueUtilisateur() {
         return this.langueUtilisateur;

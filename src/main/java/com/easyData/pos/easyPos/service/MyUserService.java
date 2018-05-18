@@ -10,7 +10,6 @@ import com.easyData.pos.easyPos.rest.model.aoth.MNG_NIVEAU_ACCEE;
 import com.easyData.pos.easyPos.rest.model.aoth.MNG_USER;
 import com.easyData.pos.easyPos.rest.repositoy.UserRepository;
 import java.util.ArrayList;
-import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -51,7 +50,7 @@ public class MyUserService implements UserDetailsService{
             );
             
         }
-        boolean active = user.getEtatUtilisateur().isActive();
+        boolean active = user.isEtatUtilisateur();
         String role_active = (active)?"ROLE_ACTIVE":"ROLE_INACTIVE";
         System.out.println("role : "+role_active);
         authorities.add(new SimpleGrantedAuthority(role_active));

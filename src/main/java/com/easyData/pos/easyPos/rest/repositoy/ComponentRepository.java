@@ -18,8 +18,15 @@ import org.springframework.stereotype.Repository;
  * @author taleb
  */
 @Repository
-public interface ComponentRepository extends JpaRepository<MNG_COMPOSANT, Long>{
-    public List<MNG_COMPOSANT> findAppByUser(@Param("user") final MNG_USER user,@Param("type") final MNG_COMPOSANT_TYPE type);
-    public List<MNG_COMPOSANT> findAppByUserID(@Param("userID") final Long userID,@Param("type") final MNG_COMPOSANT_TYPE type);
+public interface ComponentRepository extends JpaRepository<MNG_COMPOSANT, Long> {
+
+    public List<MNG_COMPOSANT> findAppByUser(@Param("user") final MNG_USER user, @Param("type") final MNG_COMPOSANT_TYPE type);
+
+    public List<MNG_COMPOSANT> findComponentByUserIdAndComponentType(@Param("userID") final Long userID, @Param("type") final MNG_COMPOSANT_TYPE type);
+
     public List<MNG_COMPOSANT> findByComponentIds(@Param("cids") final List<Long> cids);
+
+    public List<MNG_COMPOSANT> findAllByComponentType(@Param("mng_composant_type") final MNG_COMPOSANT_TYPE mng_composant_type);
+
+    public List<MNG_COMPOSANT> findAllByUser(@Param("userID") final Long id);
 }

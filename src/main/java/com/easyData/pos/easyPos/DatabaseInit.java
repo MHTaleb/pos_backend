@@ -12,13 +12,11 @@ import com.easyData.pos.easyPos.rest.model.aoth.MNG_NIVEAU_ACCEE;
 import com.easyData.pos.easyPos.rest.model.aoth.MNG_PROGRAM;
 import com.easyData.pos.easyPos.rest.model.aoth.MNG_USER;
 import com.easyData.pos.easyPos.rest.model.aoth.MNG_USER_LANG;
-import com.easyData.pos.easyPos.rest.model.aoth.MNG_USER_STATE;
 import com.easyData.pos.easyPos.rest.model.aoth.MNG_USER_TYPE;
 import com.easyData.pos.easyPos.rest.repositoy.NiveauAccessRepository;
 import com.easyData.pos.easyPos.rest.repositoy.ProgramRepository;
 import com.easyData.pos.easyPos.rest.repositoy.UserLangRepository;
 import com.easyData.pos.easyPos.rest.repositoy.UserRepository;
-import com.easyData.pos.easyPos.rest.repositoy.UserState_Repository;
 import com.easyData.pos.easyPos.rest.repositoy.UserType_Repository;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -40,9 +38,7 @@ public class DatabaseInit implements ApplicationListener<ApplicationReadyEvent> 
     @Autowired
     private UserRepository repo;
 
-    @Autowired
-    private UserState_Repository state_Repository;
-
+    
     @Autowired
     private UserLangRepository langRepository;
 
@@ -80,9 +76,8 @@ public class DatabaseInit implements ApplicationListener<ApplicationReadyEvent> 
             u.setDateMiseAJour(dateDebut);
             u.setDernierUtilisateur(null);
 
-            final MNG_USER_STATE mng_user_state = new MNG_USER_STATE();
-            mng_user_state.setActive(true);
-            u.setEtatUtilisateur(mng_user_state);
+            
+            u.setEtatUtilisateur(true);
 
             final MNG_USER_LANG mng_user_lang = new MNG_USER_LANG();
             mng_user_lang.setCode("FR");
@@ -103,7 +98,7 @@ public class DatabaseInit implements ApplicationListener<ApplicationReadyEvent> 
             roles.add(Role.ADMIN);
             roles.add(Role.CLIENT);
             roles.add(Role.OTHER);
-
+            niveauAccesSuperAdmin.setAclTitle("Niveau Access Super Admin");
             niveauAccesSuperAdmin.setRoles(roles);
             u.setNiveauAcces(niveauAccesSuperAdmin);
 
@@ -121,7 +116,7 @@ public class DatabaseInit implements ApplicationListener<ApplicationReadyEvent> 
             accessRepository.save(niveauAccesSuperAdmin);
             programRepository.save(program);
             langRepository.save(mng_user_lang);
-            state_Repository.save(mng_user_state);
+           
             repo.save(u);
 
             
