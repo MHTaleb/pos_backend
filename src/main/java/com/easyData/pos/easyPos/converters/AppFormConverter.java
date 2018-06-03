@@ -5,7 +5,7 @@
  */
 package com.easyData.pos.easyPos.converters;
 
-import com.easyData.pos.easyPos.rest.contoller.application.ApplicationForm;
+import com.easyData.pos.easyPos.dto.component.ComponentForm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -13,22 +13,22 @@ import java.util.logging.Logger;
 import org.springframework.core.convert.converter.Converter;
 
 /**
- *  ApplicationForm
+ *  ComponentForm
  * @author taleb
  */
-public class AppFormConverter implements Converter<String, ApplicationForm>{
+public class AppFormConverter implements Converter<String, ComponentForm>{
 
     @Override
-    public ApplicationForm convert(String s) {
+    public ComponentForm convert(String s) {
         System.out.println(s);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            return objectMapper.readValue(s, ApplicationForm.class);
+            return objectMapper.readValue(s, ComponentForm.class);
         } catch (IOException ex) {
             Logger.getLogger(AppDataFormConverter.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("handled here");
-        return new ApplicationForm();
+        return new ComponentForm();
     }
     
 }

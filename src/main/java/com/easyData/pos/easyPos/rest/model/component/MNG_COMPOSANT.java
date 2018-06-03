@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -70,13 +71,13 @@ public class MNG_COMPOSANT implements Serializable {
     @Enumerated(EnumType.STRING)
     private MNG_COMPOSANT_TYPE cmp_type;
 
-    @OneToMany(targetEntity = MNG_COMPOSANT.class)
+    @ManyToMany(targetEntity = MNG_COMPOSANT.class , fetch = FetchType.LAZY)
     private List<MNG_COMPOSANT> cmp_parents;
 
-    @OneToMany(targetEntity = MNG_COMPOSANT.class , fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = MNG_COMPOSANT.class , fetch = FetchType.LAZY)
     private List<MNG_COMPOSANT> cmp_fils;
 
-    @OneToMany(targetEntity = MNG_COMPOSANT_DATA.class)
+    @OneToMany(targetEntity = MNG_COMPOSANT_DATA.class, orphanRemoval = true)
     private List<MNG_COMPOSANT_DATA> cmp_datas;
 
     public Long getId() {

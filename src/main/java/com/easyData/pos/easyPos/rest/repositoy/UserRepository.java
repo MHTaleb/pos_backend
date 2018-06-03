@@ -6,6 +6,7 @@
 package com.easyData.pos.easyPos.rest.repositoy;
 
 import com.easyData.pos.easyPos.rest.model.aoth.MNG_USER;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,5 +23,8 @@ public interface UserRepository extends JpaRepository<MNG_USER, Long> {
     public MNG_USER doConnect(@Param("us_username") final String us_username,@Param("us_pwdusr") final String us_pwdusr );
     @Query("SELECT e FROM MNG_USER e WHERE e.utilisateur = :username")
     public MNG_USER findByUsername(@Param("username") String username);
+    
+    
+    public List<MNG_USER> findAllByPackId(@Param("pack_id") Long pack_id);
     
 }

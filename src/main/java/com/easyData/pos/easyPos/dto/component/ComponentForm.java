@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.easyData.pos.easyPos.rest.contoller.application;
+package com.easyData.pos.easyPos.dto.component;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,19 +12,19 @@ import java.util.Objects;
  *
  * @author taleb
  */
-public class ApplicationForm {
-     private String app_name;
+public class ComponentForm {
+     private String component_name;
     
     private List<Long> id_fils;
     private List<Long> id_parents;
     private List<Long> id_datas;
     
-        public String getApp_name() {
-        return app_name;
+        public String getComponent_name() {
+        return component_name;
     }
 
-    public void setApp_name(String app_name) {
-        this.app_name = app_name;
+    public void setComponent_name(String component_name) {
+        this.component_name = component_name;
     }
 
     public List<Long> getId_fils() {
@@ -51,8 +51,8 @@ public class ApplicationForm {
         this.id_datas = id_datas;
     }
 
-    public ApplicationForm(String app_name, List<Long> id_fils, List<Long> id_parents, List<Long> id_datas) {
-        this.app_name = app_name;
+    public ComponentForm(String app_name, List<Long> id_fils, List<Long> id_parents, List<Long> id_datas) {
+        this.component_name = app_name;
         this.id_fils = id_fils;
         this.id_parents = id_parents;
         this.id_datas = id_datas;
@@ -61,7 +61,7 @@ public class ApplicationForm {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.app_name);
+        hash = 89 * hash + Objects.hashCode(this.component_name);
         hash = 89 * hash + Objects.hashCode(this.id_fils);
         hash = 89 * hash + Objects.hashCode(this.id_parents);
         hash = 89 * hash + Objects.hashCode(this.id_datas);
@@ -79,8 +79,8 @@ public class ApplicationForm {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ApplicationForm other = (ApplicationForm) obj;
-        if (this.app_name.toLowerCase().equals( other.app_name.toLowerCase())) {
+        final ComponentForm other = (ComponentForm) obj;
+        if (this.component_name.toLowerCase().equals(other.component_name.toLowerCase())) {
             return false;
         }
         if (!Objects.equals(this.id_fils, other.id_fils)) {
@@ -92,12 +92,12 @@ public class ApplicationForm {
         return Objects.equals(this.id_datas, other.id_datas);
     }
 
-    public ApplicationForm() {
+    public ComponentForm() {
     }
 
     @Override
     public String toString() {
-        return "{" + "app_name=" + app_name + ", id_fils=" + id_fils + ", id_parents=" + id_parents + ", id_datas=" + id_datas + '}';
+        return "{" + "app_name=" + component_name + ", id_fils=" + id_fils + ", id_parents=" + id_parents + ", id_datas=" + id_datas + '}';
     }
     
     

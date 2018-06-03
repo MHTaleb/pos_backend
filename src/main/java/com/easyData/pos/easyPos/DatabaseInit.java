@@ -37,7 +37,6 @@ public class DatabaseInit implements ApplicationListener<ApplicationReadyEvent> 
 
     @Autowired
     private UserRepository repo;
-
     
     @Autowired
     private UserLangRepository langRepository;
@@ -104,13 +103,13 @@ public class DatabaseInit implements ApplicationListener<ApplicationReadyEvent> 
 
             u.setNom("Taleb");
             u.setNombreErreur(0);
-            u.setPassword(Crypto.getSha("administrateur"));
+            u.setPassword(Crypto.getSha("admin"));
             u.setPrenom("Mohammed Housseyn");
 
             MNG_USER_TYPE mng_user_type = new MNG_USER_TYPE();
             u.setTypeUtilisateur(mng_user_type);
 
-            u.setUtilisateur("administrateur");
+            u.setUtilisateur("admin");
 
             userType_Repository.save(mng_user_type);
             accessRepository.save(niveauAccesSuperAdmin);

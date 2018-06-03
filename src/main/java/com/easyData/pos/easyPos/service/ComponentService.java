@@ -13,6 +13,7 @@ import com.easyData.pos.easyPos.rest.repositoy.ComponentDataRepository;
 import com.easyData.pos.easyPos.rest.repositoy.ComponentRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,14 +89,21 @@ public class ComponentService {
     public MNG_COMPOSANT editComponent(final Long mng_component_id,final MNG_COMPOSANT_TYPE mng_composant_type,final List<Long> id_fils,final List<Long> id_parents,final List<Long> id_datas){
         final MNG_COMPOSANT mng_composant = componentRepository.getOne(mng_component_id);
         mng_composant.setCmp_type(mng_composant_type);
-        mng_composant.setCmp_fils(componentRepository.findAllById(id_fils));
-        mng_composant.setCmp_parents(componentRepository.findAllById(id_parents));
-        mng_composant.setCmp_datas(componentDataRepository.findAllById(id_datas));
+        mng_composant.getCmp_fils().clear();
+        mng_composant.getCmp_fils().addAll(componentRepository.findAllById(id_fils));
+        mng_composant.getCmp_parents().clear();
+        mng_composant.getCmp_parents().addAll(componentRepository.findAllById(id_parents));
+        mng_composant.getCmp_datas().clear();
+        mng_composant.getCmp_datas().addAll(componentDataRepository.findAllById(id_datas));
         componentRepository.save(mng_composant);
         return mng_composant;
     }
     
     public void removeComponent(final Long componentID){
+        MNG_COMPOSANT mng_composant = componentRepository.findById(componentID).get();
+        mng_composant.getCmp_datas().clear();
+        mng_composant.getCmp_fils().clear();
+        mng_composant.getCmp_parents().clear();
         componentRepository.deleteById(componentID);
     }
 

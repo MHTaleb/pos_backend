@@ -5,9 +5,9 @@
  */
 package com.easyData.pos.easyPos.rest.contoller.application;
 
+import com.easyData.pos.easyPos.dto.component.ComponentDataForm;
 import com.easyData.pos.easyPos.GenericController;
 import com.easyData.pos.easyPos.dto.ServerResponse;
-import com.easyData.pos.easyPos.rest.contoller.tools.RequestParamVars;
 import com.easyData.pos.easyPos.rest.model.component.MNG_COMPOSANT_DATA;
 import com.easyData.pos.easyPos.rest.repositoy.ComponentDataRepository;
 import com.easyData.pos.easyPos.rest.repositoy.ComponentRepository;
@@ -16,6 +16,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,39 +37,41 @@ public class ComponentDataController extends GenericController {
     @Autowired
     private ComponentRepository componentRepository;
 
-    @PostMapping(params = {"code_att", "label_att", "value_att"})
-    public ServerResponse addData(
-            @RequestParam(RequestParamVars.CODE_ATT) String code_att,
-            @RequestParam(RequestParamVars.LABEL_ATT) String label_att,
-            @RequestParam(RequestParamVars.VALUE_ATT) String value_att
-    ) {
-
-        if (isSessionValid()) {
-            MNG_COMPOSANT_DATA mng_composant_data = new MNG_COMPOSANT_DATA();
-
-            mng_composant_data.setCmp_attr_code(code_att);
-            mng_composant_data.setCmp_attr_label(label_att);
-            mng_composant_data.setCmp_attr_value(value_att);
-
-            componentDataRepository.save(mng_composant_data);
-
-            initSuccessResponse(mng_composant_data);
-            return serverResponse;
-
-        }
-
-        initFailLoginResponse();
-        return serverResponse;
-    }
-
+//    @PostMapping(params = {"code_att", "label_att", "value_att"})
+//    public ServerResponse addData(
+//            @RequestParam(RequestParamVars.CODE_ATT) String code_att,
+//            @RequestParam(RequestParamVars.LABEL_ATT) String label_att,
+//            @RequestParam(RequestParamVars.VALUE_ATT) String value_att
+//    ) {
+//
+//        if (isSessionValid()) {
+//            MNG_COMPOSANT_DATA mng_composant_data = new MNG_COMPOSANT_DATA();
+//
+//            mng_composant_data.setCmp_attr_code(code_att);
+//            mng_composant_data.setCmp_attr_label(label_att);
+//            mng_composant_data.setCmp_attr_value(value_att);
+//
+//            componentDataRepository.save(mng_composant_data);
+//
+//            initSuccessResponse(mng_composant_data);
+//            return serverResponse;
+//
+//        }
+//
+//        initFailLoginResponse();
+//        return serverResponse;
+//    }
     @PostMapping
     private ServerResponse creatAllCompDatas(
-            @RequestParam final List<ComponentDataForm> componentDataFormValues
+            @RequestBody final List<ComponentDataForm> componentDataFormValues
     ) {
+
+        System.out.println(componentDataFormValues);
 
         if (isSessionValid()) {
             List<Long> datasIds = new ArrayList();
             componentDataFormValues.stream().forEach(formValue -> {
+                System.out.println("form v = " + formValue);
                 MNG_COMPOSANT_DATA mng_composant_data = new MNG_COMPOSANT_DATA();
 
                 mng_composant_data.setCmp_attr_code(formValue.getAttCode());
@@ -78,10 +81,10 @@ public class ComponentDataController extends GenericController {
                 componentDataRepository.save(mng_composant_data);
                 datasIds.add(mng_composant_data.getId());
             });
-            
+
             initSuccessResponse(datasIds);
             return serverResponse;
-            
+
         }
         initFailLoginResponse();
         return serverResponse;
@@ -100,8 +103,5 @@ public class ComponentDataController extends GenericController {
         return serverResponse;
 
     }
-
-   
-    
 
 }

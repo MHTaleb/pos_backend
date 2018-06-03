@@ -25,22 +25,20 @@ import org.springframework.web.bind.annotation.RestController;
  * @author taleb
  */
 @RestController
-@RequestMapping(FunctionController.URL_PATH)
-public class FunctionController extends GenericController{
-
-    public static final String URL_PATH = "/fonctions";
-
-   
-     @Autowired
+@RequestMapping(MenuController.URL)
+public class MenuController extends GenericController {
+    public final static String URL = "/menus";
+    
+    @Autowired
     private ComponentService componentService;
     
     @PostMapping
-    private ServerResponse createFonction(
+    private ServerResponse createMenu(
             @RequestParam final ComponentForm componentForm
     ){
         
         if(isSessionValid()){
-            initSuccessResponse(componentService.createComponent(MNG_COMPOSANT_TYPE.FONCTION, componentForm.getId_fils(), componentForm.getId_parents(),componentForm.getId_datas()));
+            initSuccessResponse(componentService.createComponent(MNG_COMPOSANT_TYPE.MENU, componentForm.getId_fils(), componentForm.getId_parents(),componentForm.getId_datas()));
             return serverResponse;
         }
         initFailLoginResponse();
@@ -49,12 +47,12 @@ public class FunctionController extends GenericController{
     }
     
     @PutMapping
-    private ServerResponse updateFonction(
-                @RequestParam final ComponentForm componentForm, @RequestParam final Long fonction_id
+    private ServerResponse updateMenu(
+             @RequestParam final ComponentForm componentForm, @RequestParam final Long menu_id
     ){
         if (isSessionValid()) {
             
-            initSuccessResponse(componentService.editComponent(fonction_id,  MNG_COMPOSANT_TYPE.FONCTION, componentForm.getId_fils(), componentForm.getId_parents(), componentForm.getId_datas()));
+            initSuccessResponse(componentService.editComponent(menu_id,  MNG_COMPOSANT_TYPE.MENU, componentForm.getId_fils(), componentForm.getId_parents(), componentForm.getId_datas()));
             return serverResponse;
         }
         initFailLoginResponse();
@@ -63,11 +61,11 @@ public class FunctionController extends GenericController{
     }
     
     @DeleteMapping
-    private ServerResponse deleteFonction(
-            @RequestParam final Long fonction_id
+    private ServerResponse deleteMenu(
+            @RequestParam final Long menu_id
     ){
         if (isSessionValid()) {
-            componentService.removeComponent(fonction_id);
+            componentService.removeComponent(menu_id);
             initSuccessResponse("Deleted");
             return serverResponse;
         }
@@ -77,27 +75,25 @@ public class FunctionController extends GenericController{
     }
     
     @GetMapping
-    private ServerResponse getAllFonctions(){
+    private ServerResponse getAllMenus(){
         if (isSessionValid()) {
             
-            initSuccessResponse(componentService.getAllByType(MNG_COMPOSANT_TYPE.FONCTION));
+            initSuccessResponse(componentService.getAllByType(MNG_COMPOSANT_TYPE.MENU));
             return serverResponse;
         }
         initFailLoginResponse();
         return serverResponse;
     }
     
-    @GetMapping("/{fonction_id}")
-    private ServerResponse getFonction(
-            @PathVariable("fonction_id") final Long fonction_id
+    @GetMapping("/{menu_id}")
+    private ServerResponse getMenu(
+            @PathVariable("menu_id") final Long menu_id
     ){
         if (isSessionValid()) {
-            initSuccessResponse(componentService.getComponent(fonction_id, MNG_COMPOSANT_TYPE.FONCTION));
+            initSuccessResponse(componentService.getComponent(menu_id, MNG_COMPOSANT_TYPE.MENU));
             return serverResponse;
         }
         initFailLoginResponse();
         return serverResponse;
     }
-   
-
 }

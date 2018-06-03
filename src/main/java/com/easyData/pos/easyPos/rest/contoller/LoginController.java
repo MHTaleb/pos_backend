@@ -105,7 +105,7 @@ public class LoginController extends GenericController {
                 List<MNG_APPLICATION_DTO> us_applications = new ArrayList<>();
                 appService.getFormatedApps(user.getId()).stream().forEach(app -> {
                     Predicate<? super MNG_COMPOSANT_DATA> prdct = prd -> {
-                        return prd.getCmp_attr_code().toUpperCase().equals("TITRE");
+                        return prd.getCmp_attr_code().equals("appName");
                     };
                     us_applications.add(new MNG_APPLICATION_DTO(app.getCmp_datas().stream().filter(prdct).findFirst().get().getCmp_attr_value(), app.getId()));
                 });

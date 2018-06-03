@@ -5,7 +5,7 @@
  */
 package com.easyData.pos.easyPos.converters;
 
-import com.easyData.pos.easyPos.rest.contoller.application.ComponentDataForm;
+import com.easyData.pos.easyPos.dto.component.ComponentDataForm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.logging.Level;

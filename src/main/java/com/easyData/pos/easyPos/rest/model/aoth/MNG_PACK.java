@@ -11,9 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import org.springframework.stereotype.Component;
 
 /**
@@ -33,7 +33,7 @@ public class MNG_PACK implements Serializable {
     @Column(unique = true)
     private String packName;
     
-    @OneToMany(targetEntity = MNG_COMPOSANT.class)
+    @ManyToMany(targetEntity = MNG_COMPOSANT.class)
     private List<MNG_COMPOSANT> mng_composants;
 
     public Long getId() {

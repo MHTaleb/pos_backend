@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.easyData.pos.easyPos.rest.contoller.application;
+package com.easyData.pos.easyPos.dto.component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;

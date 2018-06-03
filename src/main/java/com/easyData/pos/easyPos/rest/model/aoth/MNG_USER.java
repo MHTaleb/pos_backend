@@ -3,6 +3,8 @@
  */
 package com.easyData.pos.easyPos.rest.model.aoth;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -23,10 +26,16 @@ import org.springframework.stereotype.Component;
  * @author taleb
  */
 @Entity
-@NamedQuery(
-        name = "MNG_USER.doConnect",
-        query = "SELECT e FROM MNG_USER e WHERE e.utilisateur = :us_username AND e.password =  :us_pwdusr"
-)
+@NamedQueries({
+    @NamedQuery(
+            name = "MNG_USER.doConnect",
+            query = "SELECT e FROM  MNG_USER e WHERE e.utilisateur = :us_username AND  e.password  =  :us_pwdusr"
+    ),
+    @NamedQuery(
+            name = "MNG_USER.findAllByPackId",
+            query = "SELECT e FROM MNG_USER e WHERE EXISTS ( SELECT 1 FROM MNG_PACK p WHERE p.id = :pack_id AND p MEMBER OF e.MNG_PACKs)"
+    )
+})
 @Component
 public class MNG_USER implements Serializable {
 
@@ -89,6 +98,7 @@ public class MNG_USER implements Serializable {
     private MNG_USER_LANG langueUtilisateur;
 
     @OneToOne(targetEntity = MNG_USER.class)
+    @JsonBackReference
     private MNG_USER dernierUtilisateur;
 
     @OneToOne(targetEntity = MNG_USER_TYPE.class)
@@ -206,8 +216,6 @@ public class MNG_USER implements Serializable {
     public void setEtatUtilisateur(boolean etatUtilisateur) {
         this.etatUtilisateur = etatUtilisateur;
     }
-
-    
 
     public MNG_USER_LANG getLangueUtilisateur() {
         return this.langueUtilisateur;

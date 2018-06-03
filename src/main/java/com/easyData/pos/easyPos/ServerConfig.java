@@ -6,7 +6,7 @@
 package com.easyData.pos.easyPos;
 
 import com.easyData.pos.easyPos.rest.model.Role;
-import com.easyData.pos.easyPos.service.MyUserService;
+import com.easyData.pos.easyPos.service.UserService;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +46,7 @@ import org.springframework.security.web.savedrequest.NullRequestCache;
 public class ServerConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    MyUserService userDetailsService;
+    UserService userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -118,7 +118,7 @@ public class ServerConfig extends WebSecurityConfigurerAdapter {
     public class AppAuthProvider extends DaoAuthenticationProvider {
 
         @Autowired
-        MyUserService userDetailsService;
+        UserService userDetailsService;
 
         @Override
         public Authentication authenticate(Authentication authentication) throws AuthenticationException {
