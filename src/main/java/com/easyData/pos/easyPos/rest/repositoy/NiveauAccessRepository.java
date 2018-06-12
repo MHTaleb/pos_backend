@@ -9,7 +9,7 @@ import com.easyData.pos.easyPos.rest.model.aoth.MNG_NIVEAU_ACCEE;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- *
+ * repository jpa pour la gestion des acl
  * @author taleb
  */
 public interface NiveauAccessRepository extends JpaRepository<MNG_NIVEAU_ACCEE, Long>{

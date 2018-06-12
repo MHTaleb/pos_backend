@@ -20,6 +20,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
+ * ceci est un service de configuration de securité et authentification spring
+ * boot il implemente la class UserDetailsService de spring boot qui permetra de
+ * connaitre la base de données des utilisateur cette imlementation n st pas une
+ * implmentation generique elle repond a notre architecture metier interdit de
+ * toucher
  *
  * @author taleb
  */
@@ -30,8 +35,15 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
 
     /**
+     * il est strictement interdit de toucher ici, ceci est un service de
+     * configuration de securité de spring boot qui lui permet de lire de la
+     * table des utilisateur
+     *
      * do not remove or update this is a configuration service mehode consumed
      * by spring boot should never be used in controllers
+     *
+     * @param username
+     * @return
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -61,6 +73,5 @@ public class UserService implements UserDetailsService {
         System.out.println(authorities);
         return new User(username, user.getPassword(), authorities);
     }
-
 
 }

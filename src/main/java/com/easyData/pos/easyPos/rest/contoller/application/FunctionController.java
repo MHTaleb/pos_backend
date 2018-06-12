@@ -21,21 +21,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
+ * un controlleur pour la creation des fonctions
  * @author taleb
  */
 @RestController
 @RequestMapping(FunctionController.URL_PATH)
 public class FunctionController extends GenericController{
 
+    /**
+     *
+     */
     public static final String URL_PATH = "/fonctions";
 
    
      @Autowired
     private ComponentService componentService;
     
+    /**
+     *
+     * @param componentForm
+     * @return
+     */
     @PostMapping
-    private ServerResponse createFonction(
+    protected ServerResponse createFonction(
             @RequestParam final ComponentForm componentForm
     ){
         
@@ -48,8 +56,14 @@ public class FunctionController extends GenericController{
         
     }
     
+    /**
+     *
+     * @param componentForm
+     * @param fonction_id
+     * @return
+     */
     @PutMapping
-    private ServerResponse updateFonction(
+    protected ServerResponse updateFonction(
                 @RequestParam final ComponentForm componentForm, @RequestParam final Long fonction_id
     ){
         if (isSessionValid()) {
@@ -62,8 +76,13 @@ public class FunctionController extends GenericController{
                 
     }
     
+    /**
+     *
+     * @param fonction_id
+     * @return
+     */
     @DeleteMapping
-    private ServerResponse deleteFonction(
+    protected ServerResponse deleteFonction(
             @RequestParam final Long fonction_id
     ){
         if (isSessionValid()) {
@@ -76,8 +95,12 @@ public class FunctionController extends GenericController{
                 
     }
     
+    /**
+     *
+     * @return
+     */
     @GetMapping
-    private ServerResponse getAllFonctions(){
+    protected ServerResponse getAllFonctions(){
         if (isSessionValid()) {
             
             initSuccessResponse(componentService.getAllByType(MNG_COMPOSANT_TYPE.FONCTION));
@@ -87,8 +110,13 @@ public class FunctionController extends GenericController{
         return serverResponse;
     }
     
+    /**
+     *
+     * @param fonction_id
+     * @return
+     */
     @GetMapping("/{fonction_id}")
-    private ServerResponse getFonction(
+    protected ServerResponse getFonction(
             @PathVariable("fonction_id") final Long fonction_id
     ){
         if (isSessionValid()) {

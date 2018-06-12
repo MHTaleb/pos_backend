@@ -9,7 +9,7 @@ import com.easyData.pos.easyPos.rest.model.SessionExchange;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- *
+ * repository jpa pour la gestoin des session
  * @author taleb
  */
 public interface SessionExchangeRepo extends JpaRepository<SessionExchange, Long>{

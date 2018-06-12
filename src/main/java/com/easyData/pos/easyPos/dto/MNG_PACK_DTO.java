@@ -6,7 +6,7 @@
 package com.easyData.pos.easyPos.dto;
 
 /**
- *
+ * @deprecated classe a suprimmer dans la prochaine version 
  * @author taleb
  */
 public class MNG_PACK_DTO {

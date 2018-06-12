@@ -9,7 +9,7 @@ import com.easyData.pos.easyPos.rest.model.aoth.MNG_PROGRAM;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- *
+ * repository jpa pour la gestion des program
  * @author taleb
  */
 public interface ProgramRepository extends JpaRepository<MNG_PROGRAM, Long>{

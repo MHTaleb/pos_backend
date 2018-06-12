@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import org.springframework.stereotype.Component;
 
 /**
+ * entité des niveau d acces c est une composition de Id,titre d acces et la liste des roles concerné
  * @author taleb
  */
 @Entity
@@ -36,39 +37,68 @@ public class MNG_NIVEAU_ACCEE implements Serializable {
     @Enumerated(value = EnumType.STRING)
     private Collection<Role> roles;
 
+    /**
+     *
+     */
     public MNG_NIVEAU_ACCEE() {
     }
 
+    /**
+     * constructeur avec parametre
+     * @param id id du acl
+     * @param roleTitle titre du acl
+     * @param roles liste des roles affecter a ce acl 
+     */
     public MNG_NIVEAU_ACCEE(Long id, String roleTitle, Collection<Role> roles) {
         this.id = id;
         this.aclTitle = roleTitle;
         this.roles = roles;
     }
 
-   
-
+    /**
+     *
+     * @return
+     */
     public Collection<Role> getRoles() {
         return roles;
     }
 
+    /**
+     *
+     * @param aclTitle
+     */
     public void setAclTitle(String aclTitle) {
         this.aclTitle = aclTitle;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAclTitle() {
         return aclTitle;
     }
 
-    
-    
+    /**
+     *
+     * @param roles
+     */
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
     
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return this.id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }

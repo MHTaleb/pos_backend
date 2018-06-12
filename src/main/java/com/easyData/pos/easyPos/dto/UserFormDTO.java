@@ -11,15 +11,26 @@ import java.util.Objects;
 import org.springframework.stereotype.Component;
 
 /**
- * java.util.Date dateDebut, java.util.Date dateFin, boolean etatUser,Long idLangue,Long idAccess, List<Long> idsPack, String nom, String password, String prenom, String username
+ * DTO qui va etre remplacer par UOW pattern
+ * <br>
+ * ceci est un DTO formulaire il sert a reunir les paramaitre d une requete Rest
+ * dans un seul objet cela donne une signature unique dans le controller qui va
+ * nous permettre de modifier les pramaitre possible dans un controlleur sans
+ * devoir recrire du code partout la liste des paramaitre possible est :
+ * java.util.Date dateDebut, date debut validité du compte java.util.Date
+ * dateFin, date fin validité du compte boolean etatUser, etat du compte activé
+ * ou désactivé Long idLangue, id de la langue Long idAccess, id du acl affecter
+ * a cette utilisateur List#Long# idsPack, liste des id des packs String nom,
+ * String password, String prenom, String username;
  *
+ * @deprecated
  * @author taleb
  */
 @Component
 public class UserFormDTO {
-    
+
     private String code_externe;
-    
+
     private Date dateDebut;
 
     private Date dateFin;
@@ -39,9 +50,24 @@ public class UserFormDTO {
     private String prenom;
 
     private String username;
-    
+
     private Long idUser;
 
+    /**
+     *
+     * @param code_externe code externe
+     * @param dateDebut date debut validité du compte
+     * @param dateFin date fin validite de ce compte(utlisateur)
+     * @param etatUser etat de l utilisateur activé desactivé
+     * @param idLangue id de la langue de cette utilisateur
+     * @param idAccess id du ACL de cette utilisateur
+     * @param idsPack liste des id des pack lier a cette utilisateur
+     * @param nom nom
+     * @param password mot de passe
+     * @param prenom prenom
+     * @param username utilisateur
+     * @param idUser Id ou code interne
+     */
     public UserFormDTO(String code_externe, Date dateDebut, Date dateFin, boolean etatUser, Long idLangue, Long idAccess, List<Long> idsPack, String nom, String password, String prenom, String username, Long idUser) {
         this.code_externe = code_externe;
         this.dateDebut = dateDebut;
@@ -57,10 +83,11 @@ public class UserFormDTO {
         this.idUser = idUser;
     }
 
-    
+    /**
+     * constructeur simple
+     */
     public UserFormDTO() {
     }
-
 
     /**
      * Get the value of idUser
@@ -278,6 +305,12 @@ public class UserFormDTO {
         this.code_externe = code_externe;
     }
 
+    /**
+     * retourn le code de hashage necessaire pour la serialisation CRC cheksum
+     * control
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -288,6 +321,13 @@ public class UserFormDTO {
         return hash;
     }
 
+    /**
+     * necessaire pour la recherche dans une liste elle permet de verifier si
+     * deux objet son pareil
+     *
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -307,17 +347,21 @@ public class UserFormDTO {
         if (!Objects.equals(this.nom, other.nom)) {
             return false;
         }
-     
+
         if (!Objects.equals(this.prenom, other.prenom)) {
             return false;
         }
         if (!Objects.equals(this.username, other.username)) {
             return false;
         }
-       
+
         return true;
     }
 
+    /**
+     * @deprecated a changer par un json generer de jackson api
+     * @return
+     */
     @Override
     public String toString() {
         return "UserForm{" + "code_externe=" + code_externe + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", etatUser=" + etatUser + ", idLangue=" + idLangue + ", idAccess=" + idAccess + ", idsPack=" + idsPack + ", nom=" + nom + ", password=" + password + ", prenom=" + prenom + ", username=" + username + '}';

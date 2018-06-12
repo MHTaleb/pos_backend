@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import org.springframework.stereotype.Component;
 
 /**
+ * a supprimer dans la prochiane version 
+ * @deprecated
  * @author taleb
  */
 @Entity
@@ -20,10 +22,18 @@ public class MNG_FONCTION {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return this.id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }

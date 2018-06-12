@@ -29,6 +29,17 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 /**
+ * Ceci est une classe de configuration : elle s execute au lancement du serveur
+ * elle sert a inserer les données minimal a la base de donnees qui sont : - un
+ * compte utilisateur avec username et password = administrateur qui as la
+ * totalité des privilege - insertion de la langue FR - ajout du serveur a la
+ * liste des programme sous le nom de : Serveur MDS 0.1 - creation niveau acces
+ * superAdmin avec roles (ADMIN,USER,CLIENT,OTHER) - configurer les valeur de
+ * depart du sequenceur
+ *
+ * pour creer d'autre class qui execute un traitement au depart il suffit de
+ * creer une classe qui herite de ApplicationListener'ApplicationReadyEvent' et
+ * definir la methode init() qui devrai etre appeler dans onApplicationEvent
  *
  * @author taleb
  */
@@ -37,7 +48,7 @@ public class DatabaseInit implements ApplicationListener<ApplicationReadyEvent> 
 
     @Autowired
     private UserRepository repo;
-    
+
     @Autowired
     private UserLangRepository langRepository;
 
@@ -49,10 +60,15 @@ public class DatabaseInit implements ApplicationListener<ApplicationReadyEvent> 
 
     @Autowired
     private UserType_Repository userType_Repository;
-    
+
     @Autowired
     private EasyDataSecuritySequencer dataSecuritySequencer;
 
+    /**
+     * la methode qui contient la logique d initialisation de la bdd
+     *
+     * @throws java.security.NoSuchAlgorithmException
+     */
     public void init() throws NoSuchAlgorithmException {
 
         long usersCount;
@@ -75,7 +91,6 @@ public class DatabaseInit implements ApplicationListener<ApplicationReadyEvent> 
             u.setDateMiseAJour(dateDebut);
             u.setDernierUtilisateur(null);
 
-            
             u.setEtatUtilisateur(true);
 
             final MNG_USER_LANG mng_user_lang = new MNG_USER_LANG();
@@ -115,16 +130,19 @@ public class DatabaseInit implements ApplicationListener<ApplicationReadyEvent> 
             accessRepository.save(niveauAccesSuperAdmin);
             programRepository.save(program);
             langRepository.save(mng_user_lang);
-           
+
             repo.save(u);
 
-            
             dataSecuritySequencer.getFunctionGenerator().getMathRepository().save(new MathFunctionModel(new Long(1), new Long(1), new Long(1), new Long(1), new Long(2)));
             System.out.println(dataSecuritySequencer.nextChallenge(4, 2));
         }
 
     }
 
+    /**
+     *
+     * @param event
+     */
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
         try {

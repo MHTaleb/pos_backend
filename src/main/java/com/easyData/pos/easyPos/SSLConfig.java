@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * class de la configuration SSL
  *
  * @author taleb
  */
@@ -31,6 +32,11 @@ public class SSLConfig {
     @Value("${server.port:8443}")
     private int serverPort;
 
+    /**
+     * recuperer une servelete factoru avec acces a tout les url de l api rest
+     *
+     * @return retourne une servlete de tomcat
+     */
     @Bean
     public ServletWebServerFactory servletContainer() {
         System.out.println("bean started");
@@ -54,11 +60,17 @@ public class SSLConfig {
             }
         });
 
-        tomcat.addAdditionalTomcatConnectors(initiateHttpConnector());
+        tomcat.addAdditionalTomcatConnectors(initiateHttpConnector(8080));
+        tomcat.addAdditionalTomcatConnectors(initiateHttpConnector(8181));
         System.out.println("connector added");
         return tomcat;
     }
 
+    /**
+     * dans cette methode j active le filtre ssl sur tt les lient de l api rest
+     *
+     * @return le bean de la configuration des filtre
+     */
     @Bean
     public FilterRegistrationBean requestDumperFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
@@ -68,11 +80,17 @@ public class SSLConfig {
         return registration;
     }
 
-    private Connector initiateHttpConnector() {
+    /**
+     * une methode qui va generer un redirecteur de port vers le https
+     *
+     * @param port le port a rediriger
+     * @return un connecteur de redirection du port vers 8443
+     */
+    private Connector initiateHttpConnector(int port) {
 
         Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
         connector.setScheme("http");
-        connector.setPort(8181);
+        connector.setPort(port);
         connector.setRedirectPort(serverPort);
         connector.setSecure(false);
 

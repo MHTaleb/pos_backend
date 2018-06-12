@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author taleb
  * 
+ * <b> <h2>par définition un ACL est une combinaison de Roles </h2> </b>
+ * 
  * refactoring needed I will delagate all pre request handling of session to a handlerInterceptor that I just found about in
  * http://javasampleapproach.com/java-integration/use-springmvc-handlerinterceptor-spring-boot
  * https://www.tuturself.com/posts/view?menuId=3&postId=1071
@@ -36,13 +38,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(NiveauAccessController.URL)
 public class NiveauAccessController extends GenericController{
 
+    /**
+     * url du service des niveeau d access (acl : access level)
+     */
     public static final String URL = "/acl";
 
     @Autowired
     private NiveauAccessRepository niveauAccessRepository;
 
+    /**
+     * Post pour creer un nouveau ACL via un titre et la liste des roles
+     * exemple : SERVER_URL/acl?aclTitle=user&roles=ADMIN,CLIENT
+     * @param aclTitle titre du nouveau ACL
+     * @param roles List des Roles
+     * @return une reponse serveur avec acl creer en succes ou message d erreur en cas d echec
+     * @see Role
+     */
     @PostMapping
-    private ServerResponse createACL(
+    protected ServerResponse createACL(
                 @RequestParam("aclTitle") final String aclTitle,
                 @RequestParam("roles") final List<String> roles 
     ){
@@ -62,8 +75,12 @@ public class NiveauAccessController extends GenericController{
         return serverResponse;
     }
     
+    /**
+     * lire la liste de tout les acl defini
+     * @return la liste des acl
+     */
     @GetMapping
-    private ServerResponse getAcls(){
+    protected ServerResponse getAcls(){
         if (isSessionValid()) {
             
             initSuccessResponse(niveauAccessRepository.findAll());
@@ -74,8 +91,13 @@ public class NiveauAccessController extends GenericController{
         return serverResponse;
     }
     
+    /**
+     * recuperer un acl specifique 
+     * @param id id de l acl specifique 
+     * @return un acl
+     */
     @GetMapping(params = "id")
-    private ServerResponse getAcl(
+    protected ServerResponse getAcl(
             @RequestParam Long id
     ){
         if (isSessionValid()) {
@@ -88,9 +110,15 @@ public class NiveauAccessController extends GenericController{
         return serverResponse;
     }
     
-    
+    /**
+     * pour mettre a jour un acl 
+     * @param id de l acl a mettre a jour
+     * @param aclTitle le nouveau titre 
+     * @param roles nouvelle liste des roles (List de String va etre converti en List de Role par Spring)
+     * @return le nouveau ACL ou un message d erreur en ca d echec
+     */
     @PutMapping(params={"id","aclTitle","roles"})
-    private ServerResponse updateACL(
+    protected ServerResponse updateACL(
             @RequestParam Long id,
             @RequestParam String aclTitle,
             @RequestParam List<Role> roles
@@ -115,8 +143,14 @@ public class NiveauAccessController extends GenericController{
         return serverResponse;
     }
   
+    /**
+     * mettre ajour que le nom d un acl
+     * @param id id de l acl a mettre a jour
+     * @param aclTitle nouveau titre de l acl
+     * @return l acl modifier ou un message  d erreur
+     */
     @PutMapping(params={"id","aclTitle"})
-    private ServerResponse updateACL(
+    protected ServerResponse updateACL(
             @RequestParam Long id,
             @RequestParam String aclTitle  
     ){
@@ -137,8 +171,13 @@ public class NiveauAccessController extends GenericController{
         return serverResponse;
     }
   
+    /**
+     * pour supprimer un acl
+     * @param id de l acl  a supprimer
+     * @return message de suppression ou un message d erreur
+     */
     @DeleteMapping
-    private ServerResponse deleteACL(
+    protected ServerResponse deleteACL(
             @RequestParam Long id
     ){
         if (isSessionValid()) {

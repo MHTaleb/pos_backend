@@ -23,30 +23,58 @@ public class MNG_USER_LANG implements Serializable {
     @Column(unique = true)
     private String code;
 
+    /**
+     *
+     */
     public MNG_USER_LANG() {
     }
 
+    /**
+     *
+     * @param id
+     * @param code
+     */
     public MNG_USER_LANG(Long id, String code) {
         this.id = id;
         this.code = code;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCode() {
         return code;
     }
 
+    /**
+     *
+     * @param code
+     */
     public void setCode(String code) {
         this.code = code;
     }
     
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return this.id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "MNG_USER_LANG{" + "id=" + id + ", code=" + code + '}';

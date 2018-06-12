@@ -20,10 +20,18 @@ public class MNG_USER_TYPE implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return this.id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }

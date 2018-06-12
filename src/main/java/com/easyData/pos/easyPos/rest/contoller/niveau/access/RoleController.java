@@ -17,17 +17,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
+ * ceci est le service qui nous donne la liste des role configurer dans l enum Role
+ * ce service Rest est ene lecture seul
  * @author taleb
  */
 @RestController
 @RequestMapping(RoleController.URL)
 public class RoleController extends GenericController {
 
+    /**
+     * URL du service
+     */
     public static final String URL = "/roles";
 
+    /**
+     * lecture de la liste des roles
+     * @return le role
+     */
     @GetMapping
-    private ServerResponse getRoles() {
+    protected ServerResponse getRoles() {
         
         if (isSessionValid()) {
 
@@ -40,10 +48,13 @@ public class RoleController extends GenericController {
         return serverResponse;
     }
     
-    
-
+    /**
+     * lire un role specifique 
+     * @param id id du role
+     * @return le role
+     */
     @GetMapping(params = "id")
-    private ServerResponse getRole(
+    protected ServerResponse getRole(
             @RequestParam Long id 
     ) {
         

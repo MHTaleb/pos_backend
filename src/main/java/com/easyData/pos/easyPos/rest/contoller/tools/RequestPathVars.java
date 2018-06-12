@@ -6,9 +6,14 @@
 package com.easyData.pos.easyPos.rest.contoller.tools;
 
 /**
- *
+ * liste des path variable 
+ * tout les variable de ient http devrai figurer ici
  * @author taleb
  */
 public class RequestPathVars {
+
+    /**
+     *
+     */
     public static final String ID_COMPOSANT ="cmp_id";
 }

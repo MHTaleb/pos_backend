@@ -22,13 +22,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
+ * Service Rest qui gere les information sur les composants
+ * il offre un mechanisme de creation et de recherche
+ * la supression et la modification sont faite en cascade avec le composant
  * @author taleb
  */
 @RestController
 @RequestMapping(ComponentDataController.REST_URL)
 public class ComponentDataController extends GenericController {
 
+    /**
+     * url du service a ajouter sur l url du serveur
+     */
     public static final String REST_URL = "/components/datas";
 
     @Autowired
@@ -37,32 +42,13 @@ public class ComponentDataController extends GenericController {
     @Autowired
     private ComponentRepository componentRepository;
 
-//    @PostMapping(params = {"code_att", "label_att", "value_att"})
-//    public ServerResponse addData(
-//            @RequestParam(RequestParamVars.CODE_ATT) String code_att,
-//            @RequestParam(RequestParamVars.LABEL_ATT) String label_att,
-//            @RequestParam(RequestParamVars.VALUE_ATT) String value_att
-//    ) {
-//
-//        if (isSessionValid()) {
-//            MNG_COMPOSANT_DATA mng_composant_data = new MNG_COMPOSANT_DATA();
-//
-//            mng_composant_data.setCmp_attr_code(code_att);
-//            mng_composant_data.setCmp_attr_label(label_att);
-//            mng_composant_data.setCmp_attr_value(value_att);
-//
-//            componentDataRepository.save(mng_composant_data);
-//
-//            initSuccessResponse(mng_composant_data);
-//            return serverResponse;
-//
-//        }
-//
-//        initFailLoginResponse();
-//        return serverResponse;
-//    }
+    /**
+     * une methode de creation d une liste d attribut (information) sur un composant
+     * @param componentDataFormValues
+     * @return
+     */
     @PostMapping
-    private ServerResponse creatAllCompDatas(
+    protected ServerResponse creatAllCompDatas(
             @RequestBody final List<ComponentDataForm> componentDataFormValues
     ) {
 
@@ -90,8 +76,13 @@ public class ComponentDataController extends GenericController {
         return serverResponse;
     }
 
+    /**
+     * pour lire une donnée sur un composant qui as un certain id
+     * @param id le id du composant
+     * @return list des donnee en relation a ce composant ( attributs)
+     */
     @GetMapping
-    private ServerResponse getDataByComponentID(
+    protected ServerResponse getDataByComponentID(
             @RequestParam final Long id
     ) {
         if (isSessionValid()) {

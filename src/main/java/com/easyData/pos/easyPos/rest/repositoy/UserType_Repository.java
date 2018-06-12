@@ -10,7 +10,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- *
+ * ceci est une classe qui nous permet de connecter a la bdd via jpa
+ * ce genre de class s appel une repository
+ * celle si est la  repository qui gere le type utilisateur
  * @author taleb
  * 
  */

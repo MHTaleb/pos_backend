@@ -11,6 +11,10 @@ import javax.persistence.Id;
 import org.springframework.stereotype.Component;
 
 /**
+ * l entité programme est le reflet d une table qui va stoqué la liste des programme
+ * au futur on compte delegé certain traitement a des processus batch pour une traçabilité chaque processus batch ou un autre utilitaire va devoir etre inscrit 
+ * on a besoin de son id et son nom
+ * 
  * @author taleb
  */
 @Entity
@@ -23,26 +27,50 @@ public class MNG_PROGRAM implements Serializable {
 
     private String programName;
     
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return this.id;
     }
     
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     */
     public MNG_PROGRAM() {
     }
 
+    /**
+     *
+     * @param id
+     * @param programName
+     */
     public MNG_PROGRAM(Long id, String programName) {
         this.id = id;
         this.programName = programName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getProgramName() {
         return programName;
     }
 
+    /**
+     *
+     * @param programName
+     */
     public void setProgramName(String programName) {
         this.programName = programName;
     }

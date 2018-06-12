@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import org.springframework.stereotype.Component;
 
 /**
+ * @deprecated a supprimer dans la prochaine version ancien uml
  * @author taleb
  */
 @Component
@@ -46,35 +47,68 @@ public class MNG_APPLICATION implements Serializable {
     @OneToOne(targetEntity = MNG_MENU.class)
     private MNG_MENU MNG_MENU;
 
+    /**
+     *
+     */
     public MNG_APPLICATION() {
     }
 
+    /**
+     *
+     * @param app_name
+     */
     public void setApp_name(String app_name) {
         this.app_name = app_name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getApp_name() {
         return app_name;
     }
 
+    /**
+     *
+     * @param id
+     * @param app_name
+     * @param MNG_MENU
+     */
     public MNG_APPLICATION(Long id, String app_name, MNG_MENU MNG_MENU) {
         this.id = id;
         this.app_name = app_name;
         this.MNG_MENU = MNG_MENU;
     }
     
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return this.id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public MNG_MENU getMNG_MENU() {
         return this.MNG_MENU;
     }
 
+    /**
+     *
+     * @param MNG_MENU
+     */
     public void setMNG_MENU(MNG_MENU MNG_MENU) {
         this.MNG_MENU = MNG_MENU;
     }

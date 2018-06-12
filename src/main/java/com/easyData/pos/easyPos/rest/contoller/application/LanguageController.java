@@ -9,7 +9,6 @@ import com.easyData.pos.easyPos.GenericController;
 import com.easyData.pos.easyPos.dto.ServerResponse;
 import com.easyData.pos.easyPos.rest.model.aoth.MNG_USER_LANG;
 import com.easyData.pos.easyPos.rest.repositoy.UserLangRepository;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,13 +26,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(LanguageController.URL)
 public class LanguageController extends GenericController{
     
+    /**
+     *
+     */
     public static final String URL = "/lang";
     
     @Autowired
     private UserLangRepository langRepository;
     
+    /**
+     *
+     * @param code
+     * @return
+     */
     @PostMapping
-    private ServerResponse createLanguage(
+    protected ServerResponse createLanguage(
             @RequestParam("code") String code
     ){
         System.out.println("adding langue");
@@ -53,8 +60,12 @@ public class LanguageController extends GenericController{
         
     }
     
+    /**
+     *
+     * @return
+     */
     @GetMapping
-    private ServerResponse getAllLangs(){
+    protected ServerResponse getAllLangs(){
         try {
             initSuccessResponse(langRepository.findAll());
             return serverResponse;
@@ -67,9 +78,13 @@ public class LanguageController extends GenericController{
             return serverResponse;
     }
     
-    
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping(params = "id")
-      private ServerResponse getLanguage(
+      protected ServerResponse getLanguage(
             @RequestParam("id") Long id
     ){
         System.out.println("updating langue");
@@ -86,8 +101,14 @@ public class LanguageController extends GenericController{
         
     }
             
+    /**
+     *
+     * @param id
+     * @param code
+     * @return
+     */
     @PutMapping
-    private ServerResponse updateLanguage(
+    protected ServerResponse updateLanguage(
             @RequestParam("id") Long id,
             @RequestParam("code") String code
     ){
@@ -107,9 +128,13 @@ public class LanguageController extends GenericController{
         
     }
       
-    
+    /**
+     *
+     * @param id_langue
+     * @return
+     */
     @DeleteMapping
-     private ServerResponse deleteLanguage(
+     protected ServerResponse deleteLanguage(
             @RequestParam("id_langue") Long id_langue
     ){
         System.out.println("updating langue");

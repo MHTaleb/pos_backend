@@ -5,6 +5,7 @@
  */
 package com.easyData.pos.easyPos.rest.contoller.application;
 
+import com.easyData.pos.easyPos.dto.PackFormDTO;
 import com.easyData.pos.easyPos.GenericController;
 import com.easyData.pos.easyPos.dto.ServerResponse;
 import com.easyData.pos.easyPos.service.UserPackService;
@@ -27,13 +28,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(PackController.URL)
 public class PackController extends GenericController {
 
+    /**
+     *
+     */
     public static final String URL = "/packs";
 
     @Autowired
     private UserPackService packService;
 
+    /**
+     *
+     * @param packFormDTO
+     * @return
+     */
     @PostMapping
-    private ServerResponse createPack(
+    protected ServerResponse createPack(
             @RequestBody PackFormDTO packFormDTO
     ) {
 
@@ -46,8 +55,13 @@ public class PackController extends GenericController {
         return serverResponse;
     }
 
+    /**
+     *
+     * @param packFormDTO
+     * @return
+     */
     @PutMapping
-    private ServerResponse updatePack(
+    protected ServerResponse updatePack(
             @RequestBody PackFormDTO packFormDTO
     ) {
         if (isSessionValid()) {
@@ -58,9 +72,13 @@ public class PackController extends GenericController {
         return serverResponse;
     }
 
-  
+    /**
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping
-    private ServerResponse deletePack(
+    protected ServerResponse deletePack(
             @RequestParam final Long id
     ) {
 
@@ -75,8 +93,12 @@ public class PackController extends GenericController {
 
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping
-    private ServerResponse getAllPacks() {
+    protected ServerResponse getAllPacks() {
 
         if (isSessionValid()) {
 
@@ -88,8 +110,13 @@ public class PackController extends GenericController {
 
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id_pack}")
-    private ServerResponse getPack(
+    protected ServerResponse getPack(
             @PathVariable("id_pack") final Long id
     ) {
         if (isSessionValid()) {

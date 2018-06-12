@@ -19,6 +19,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * classe de configuration de la securité cette class gere l echec de connexion
+ * en implementant AccessDeniedHandler elle va verifier l etat de l
+ * authetification , puis elle va loger en info l'utilisateur qui essaye de se
+ * connecter dans les log cette classe peu etre amelioré a ecrire dans une base
+ * de données ou un serveur distant
  *
  * @author taleb
  */
@@ -27,10 +32,18 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
 
     private static Logger logger = LoggerFactory.getLogger(MyAccessDeniedHandler.class);
 
+    /**
+     *
+     * @param httpServletRequest
+     * @param httpServletResponse
+     * @param e
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void handle(HttpServletRequest httpServletRequest,
-                       HttpServletResponse httpServletResponse,
-                       AccessDeniedException e) throws IOException, ServletException {
+            HttpServletResponse httpServletResponse,
+            AccessDeniedException e) throws IOException, ServletException {
 
         Authentication auth
                 = SecurityContextHolder.getContext().getAuthentication();

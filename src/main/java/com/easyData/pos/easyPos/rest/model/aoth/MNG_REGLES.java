@@ -13,6 +13,8 @@ import javax.persistence.OneToOne;
 import org.springframework.stereotype.Component;
 
 /**
+ * @deprecated 
+ * ceci va disparaitre de la prochiane version il fait partie de l ancien uml
  * @author taleb
  */
 @Entity
@@ -29,26 +31,50 @@ public class MNG_REGLES implements Serializable {
     @OneToOne(targetEntity = MNG_FONCTION.class)
     private MNG_FONCTION MNG_FONCTION;
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return this.id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public MNG_PACK getMNG_PROFILE() {
         return this.MNG_PROFILE;
     }
 
+    /**
+     *
+     * @param MNG_PROFILE
+     */
     public void setMNG_PROFILE(MNG_PACK MNG_PROFILE) {
         this.MNG_PROFILE = MNG_PROFILE;
     }
 
+    /**
+     *
+     * @return
+     */
     public MNG_FONCTION getMNG_FONCTION() {
         return this.MNG_FONCTION;
     }
 
+    /**
+     *
+     * @param MNG_FONCTION
+     */
     public void setMNG_FONCTION(MNG_FONCTION MNG_FONCTION) {
         this.MNG_FONCTION = MNG_FONCTION;
     }

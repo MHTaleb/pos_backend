@@ -24,13 +24,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- *
+ * la Rest api de gestion d utilisateur <b> à ne pas confondre avec l api d authentification</b>
+ * cette api sert a faire les operaion crud sur les utilisateur
  * @author taleb
  */
 @RestController
 @RequestMapping(UsersController.SERVICE_URI)
 public class UsersController extends GenericController {
 
+    /**
+     * lien de l api
+     */
     public static final String SERVICE_URI = "/users";
 
     @Autowired
@@ -42,33 +46,10 @@ public class UsersController extends GenericController {
     
 
     /**
-     * will be replaced using the RequestBody should update code in respective
-     * client edit form
+     * recuperer la liste de tout les utilisateurs
      */
-//    @AdminSecured
-//    @PutMapping("/{user_id}")
-//    private ServerResponse updateUser(@PathVariable("user_id") final Long userID,
-//            @RequestParam("usr_nom") final String nom,
-//            @RequestParam("usr_prn") final String prenom,
-//            @RequestParam("usr_username") final String username,
-//            @RequestParam("usr_pwd") final String password){
-//        System.out.println("receiving request");
-//        if(isSessionValid()){
-//            System.out.println("update password is : "+password);
-//            MNG_USER mng_user = userRepo.findById(userID).get();
-//            mng_user.setUtilisateur(username);
-//            mng_user.setNom(nom);
-//            mng_user.setPrenom(prenom);
-//            mng_user.setPassword(password);
-//            userRepo.save(mng_user);
-//            
-//            serverResponse.setMessage("update done successfully");
-//        }
-//        
-//        return serverResponse;
-//    }
     @GetMapping
-    private ServerResponse getAllUsers() {
+    protected ServerResponse getAllUsers() {
         if (isSessionValid()) {
 
             initSuccessResponse(userService.getllAllUsersLight());
@@ -78,9 +59,13 @@ public class UsersController extends GenericController {
         return serverResponse;
     }
     
-    
+    /**
+     * recuperer la liste des utilisateur qui possede un pack specifique
+     * @param pack_id le id du pack 
+     * @return la liste d utilisateur qui ont une inscription au pack
+     */
     @GetMapping("/pack/{pack_id}")
-    private ServerResponse getUsersByPack(
+    protected ServerResponse getUsersByPack(
             @PathVariable("pack_id") Long pack_id
     ) {
         if (isSessionValid()) {
@@ -92,8 +77,13 @@ public class UsersController extends GenericController {
         return serverResponse;
     }
     
-     @GetMapping("/{user_id}")
-    private ServerResponse getUsersByID(
+    /**
+     * recuperer un utilisateur specifique depuis son id
+     * @param user_id le id de l utilisateur
+     * @return le compte utilisateur de ce ID
+     */
+    @GetMapping("/{user_id}")
+    protected ServerResponse getUsersByID(
             @PathVariable("user_id") Long user_id
     ) {
         if (isSessionValid()) {
@@ -105,9 +95,14 @@ public class UsersController extends GenericController {
         return serverResponse;
     }
 
+    /**
+     * pour suprimer un compte utilisateur
+     * @param id id du compte a suprimer
+     * @return message de reussite ou message d erreur
+     */
     @AdminSecured
     @DeleteMapping
-    private ServerResponse deleteUser(@RequestParam Long id) {
+    protected ServerResponse deleteUser(@RequestParam Long id) {
         if (isSessionValid()) {
 
             initSuccessResponse(userService.delete(id));
@@ -117,9 +112,15 @@ public class UsersController extends GenericController {
         return serverResponse;
     }
 
+    /**
+     * pour creer un utilisateur
+     * @param userForm formulaire d insertion d un utilisateur, le id dans le formulaire n ets pas obligatoir vu sa generation automatique
+     * @see UserFormDTO le formulaire
+     * @return le nouveau utilisateur avec son id ou un message d erreur en cas d echec
+     */
     @AdminSecured
     @PostMapping
-    private ServerResponse createUser(@RequestBody UserFormDTO userForm) {
+    protected ServerResponse createUser(@RequestBody UserFormDTO userForm) {
         if (isSessionValid()) {
 
             initSuccessResponse(
@@ -142,13 +143,19 @@ public class UsersController extends GenericController {
         return serverResponse;
     }
 
+    /**
+     * pour mettre a jour un utilisateur
+     * @param userForm formulaire de mise a jour
+     * @see UserFormDTO
+     * @return le compte utilisateur avec la nouvelle modification
+     */
     @AdminSecured
     @PutMapping()
-    private ServerResponse updateUser(@RequestBody UserFormDTO userForm) {
+    protected ServerResponse updateUser(@RequestBody UserFormDTO userForm) {
         if (isSessionValid()) {
 
             initSuccessResponse(
-                    userService.createUser(
+                    userService.update(userForm.getIdUser(),
                             userForm.getCode_externe(),
                             userForm.getDateDebut(),
                             userForm.getDateFin(),

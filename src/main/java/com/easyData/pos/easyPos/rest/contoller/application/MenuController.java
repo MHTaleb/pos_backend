@@ -27,13 +27,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(MenuController.URL)
 public class MenuController extends GenericController {
+
+    /**
+     *
+     */
     public final static String URL = "/menus";
     
     @Autowired
     private ComponentService componentService;
     
+    /**
+     *
+     * @param componentForm
+     * @return
+     */
     @PostMapping
-    private ServerResponse createMenu(
+    protected ServerResponse createMenu(
             @RequestParam final ComponentForm componentForm
     ){
         
@@ -46,8 +55,14 @@ public class MenuController extends GenericController {
         
     }
     
+    /**
+     *
+     * @param componentForm
+     * @param menu_id
+     * @return
+     */
     @PutMapping
-    private ServerResponse updateMenu(
+    protected ServerResponse updateMenu(
              @RequestParam final ComponentForm componentForm, @RequestParam final Long menu_id
     ){
         if (isSessionValid()) {
@@ -60,8 +75,13 @@ public class MenuController extends GenericController {
                 
     }
     
+    /**
+     *
+     * @param menu_id
+     * @return
+     */
     @DeleteMapping
-    private ServerResponse deleteMenu(
+    protected ServerResponse deleteMenu(
             @RequestParam final Long menu_id
     ){
         if (isSessionValid()) {
@@ -74,8 +94,12 @@ public class MenuController extends GenericController {
                 
     }
     
+    /**
+     *
+     * @return
+     */
     @GetMapping
-    private ServerResponse getAllMenus(){
+    protected ServerResponse getAllMenus(){
         if (isSessionValid()) {
             
             initSuccessResponse(componentService.getAllByType(MNG_COMPOSANT_TYPE.MENU));
@@ -85,8 +109,13 @@ public class MenuController extends GenericController {
         return serverResponse;
     }
     
+    /**
+     *
+     * @param menu_id
+     * @return
+     */
     @GetMapping("/{menu_id}")
-    private ServerResponse getMenu(
+    protected ServerResponse getMenu(
             @PathVariable("menu_id") final Long menu_id
     ){
         if (isSessionValid()) {

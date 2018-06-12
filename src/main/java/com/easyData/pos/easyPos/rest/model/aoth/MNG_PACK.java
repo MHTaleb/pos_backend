@@ -17,6 +17,12 @@ import javax.persistence.NamedQuery;
 import org.springframework.stereotype.Component;
 
 /**
+ * Entit des pack
+ * un pack se compose d un id un nom et une liste de composant (pour l instant que des applications )
+ * la requete findAllByIds est une  requete qui retourne la liste des packs selon une list d id
+ * les id dans jpa son generer automatiquement et garanti unique
+ * ceci est un pojo simple
+ * @see MNG_COMPOSANT
  * @author taleb
  */
 @Entity
@@ -36,27 +42,50 @@ public class MNG_PACK implements Serializable {
     @ManyToMany(targetEntity = MNG_COMPOSANT.class)
     private List<MNG_COMPOSANT> mng_composants;
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return this.id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @param packName
+     */
     public void setPackName(String packName) {
         this.packName = packName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPackName() {
         return packName;
     }
 
-    
+    /**
+     *
+     * @return
+     */
     public List<MNG_COMPOSANT> getMng_composants() {
         return this.mng_composants;
     }
 
+    /**
+     *
+     * @param mng_composants
+     */
     public void setMng_composants(List<MNG_COMPOSANT> mng_composants) {
         this.mng_composants = mng_composants;
     }

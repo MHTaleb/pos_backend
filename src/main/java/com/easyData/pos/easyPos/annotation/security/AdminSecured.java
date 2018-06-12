@@ -13,7 +13,8 @@ import java.lang.annotation.Target;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
- *
+ * Annotation de securité qui oblige la verification des droit avant l execution d une methode
+ * l utilisateur en cours doit etre ADMIN
  * @author taleb
  */
 @Target({ ElementType.METHOD, ElementType.TYPE })

@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import org.springframework.stereotype.Component;
 
 /**
+ * @deprecated a supprimer dans la prochaine version
  * @author taleb
  */
 @Entity
@@ -28,27 +29,50 @@ public class MNG_MENU {
     @OneToMany(targetEntity = MNG_MENU.class)
     private List<MNG_MENU> MNG_MENUs;
 
+    /**
+     *
+     * @return
+     */
     public Long getId() {
         return this.id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<MNG_FONCTION> getMNG_FONCTION() {
         return MNG_FONCTION;
     }
 
+    /**
+     *
+     * @param MNG_FONCTION
+     */
     public void setMNG_FONCTION(List<MNG_FONCTION> MNG_FONCTION) {
         this.MNG_FONCTION = MNG_FONCTION;
     }
 
-   
+    /**
+     *
+     * @return
+     */
     public List<MNG_MENU> getMNG_MENUs() {
         return this.MNG_MENUs;
     }
 
+    /**
+     *
+     * @param MNG_MENUs
+     */
     public void setMNG_MENUs(List<MNG_MENU> MNG_MENUs) {
         this.MNG_MENUs = MNG_MENUs;
     }

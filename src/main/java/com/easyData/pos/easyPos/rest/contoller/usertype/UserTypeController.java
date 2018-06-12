@@ -19,20 +19,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
+ * un controlleur sur les type utilisateur
+ * pas encore en marche vu aucune description sur le besoin n est encore faite
+ * ceci est une preparation pour une eventuel implementation
  * @author taleb
  */
 @RestController
 @RequestMapping(UserTypeController.URL)
 public class UserTypeController extends GenericController{
     
+    /**
+     * URL du service
+     */
     public final static  String URL = "/usertypes";
     
     @Autowired
     private UserType_Repository type_Repository;
     
+    /**
+     * pour creer un type utilisateur
+     * @return
+     */
     @PostMapping 
-    private ServerResponse createUserType(){
+    protected ServerResponse createUserType(){
         
         if(isSessionValid()){
             final MNG_USER_TYPE mng_user_type = new MNG_USER_TYPE();
@@ -46,8 +55,12 @@ public class UserTypeController extends GenericController{
         
     }
     
+    /**
+     * pour lire tout les type utilisateur
+     * @return
+     */
     @GetMapping
-    private ServerResponse getAllUserTypes(){
+    protected ServerResponse getAllUserTypes(){
         if(!isSessionValid()){
             initFailLoginResponse();
             return serverResponse;
@@ -56,8 +69,13 @@ public class UserTypeController extends GenericController{
         return serverResponse;
     }
     
+    /**
+     * pour suprimer un type utilisateur
+     * @param id du type utilisateur a supprimer
+     * @return
+     */
     @DeleteMapping
-    private ServerResponse deleteUserTypes(
+    protected ServerResponse deleteUserTypes(
             @RequestParam Long id
     ){
         if(!isSessionValid()){

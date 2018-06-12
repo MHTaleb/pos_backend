@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- *
+ * repository jpa pour la gestion des langue
  * @author taleb
  */
 @Repository

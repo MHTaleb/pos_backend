@@ -12,7 +12,20 @@ package com.easyData.pos.easyPos.rest.model.component;
 
 public enum MNG_COMPOSANT_TYPE {
     
-    APPLICATION,MENU,FONCTION;
+    /**
+     *
+     */
+    APPLICATION,
+
+    /**
+     *
+     */
+    MENU,
+
+    /**
+     *
+     */
+    FONCTION;
     
     
 }

@@ -6,9 +6,7 @@
 package com.easyData.pos.easyPos.rest.contoller;
 
 import com.easyData.pos.easyPos.GenericController;
-import com.easyData.pos.easyPos.rest.contoller.tools.HttpSessionVars;
 import com.easyData.pos.easyPos.rest.contoller.tools.RequestParamVars;
-import com.easyData.pos.easyPos.dto.EasyDataSecuritySequencer;
 import com.easyData.pos.easyPos.service.ComponentService;
 import com.easyData.pos.easyPos.dto.MNG_APPLICATION_DTO;
 import com.easyData.pos.easyPos.dto.MNG_USER_DTO;
@@ -16,7 +14,6 @@ import com.easyData.pos.easyPos.dto.MNG_USER_STATE_DTO;
 import com.easyData.pos.easyPos.dto.ServerResponse;
 import com.easyData.pos.easyPos.rest.model.component.MNG_COMPOSANT_DATA;
 import com.easyData.pos.easyPos.rest.model.aoth.MNG_USER;
-import com.easyData.pos.easyPos.rest.repositoy.ApplicationRepository;
 import com.easyData.pos.easyPos.rest.repositoy.UserRepository;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +29,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * Le controller / Api Rest qui est responsable sur l authentification et la
+ * deconnexion ceci est un mechanisme spring boot security implementé
  *
  * @author taleb
  */
@@ -39,33 +38,36 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(LoginController.SERVICE_URI)
 public class LoginController extends GenericController {
 
+    /**
+     *
+     */
     public static final String SERVICE_URI = "/logins";
 
-  
     @Autowired
     private ComponentService appService;
 
     @Autowired
     private UserRepository repository;
 
-    
     /**
-     * I have to reimplement to use services ( my design is not flexible and not easely upgradable ) I should use encapsulationI have to add
-     *      .user service implementation
-     *      .application service implementation
-     *      .server service implementation : here i should delegate user sesison registration to this service method(registerUser)
-     *          this will help me check licence of the user over the server
+     * methode de deconnexion de l'utilisateur en cours url : /logins/logout
+     *
+     * @param session servlet session en cours injecter par Spring CDI
      */
-    
-
-
-
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void logout(HttpSession session) {
         session.invalidate();
     }
-    
+
+    /**
+     * methode d authentification url: /logins/login
+     *
+     * @param us_username username
+     * @param us_pwdusr mot de passe
+     * @return detail utilisateur avec la liste d application de MNG_USER_DTO
+     * @see MNG_USER_DTO
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ServerResponse<MNG_USER_DTO> connecte(
             @RequestParam(name = RequestParamVars.USERNAME) final String us_username,
@@ -123,7 +125,18 @@ public class LoginController extends GenericController {
         return serverResponse;
     }
 
-    private boolean checkUserFetched(MNG_USER user, String username, String password) {
+    /**
+     *
+     * ceci est une preparation pour une eventuel verification d utilisateur
+     * apres que la connexion sois valide par spring a implementé au futur
+     *
+     * @param user utilisateur recuperer par spring
+     * @param username username recu
+     * @param password mot de passe recu
+     * @return vrai si la verification est reussi , sinon un log d erreur sur la
+     * nature de l echec et faux
+     */
+    protected boolean checkUserFetched(MNG_USER user, String username, String password) {
         boolean isNull = user == null;
         if (isNull) {
             //do log
@@ -136,7 +149,15 @@ public class LoginController extends GenericController {
         return true;
     }
 
-    private boolean checkUserDataWellFormed(MNG_USER user) {
+    /**
+     * une eventuel verification sur la nature des données de l utilisateur
+     * verifier et authentifier a implementé au futur
+     *
+     * @param user utilisateur validé
+     * @return vrai si les données sont valide et faux sinon avec des log sur le
+     * niveau serveur
+     */
+    protected boolean checkUserDataWellFormed(MNG_USER user) {
         try {
 
             return true;
@@ -146,7 +167,26 @@ public class LoginController extends GenericController {
 
     }
 
-    private boolean isFineParam(String us_username, String us_pwdusr, String us_cextusr, String us_nomusr, String us_prnusr, String us_prnusr0, Date us_datdeb, Date us_datfin, Long us_etatusr, Long us_langue, Long us_lastuser, Long us_typusr, Long us_lastprg, Long us_nivacc) {
+    /**
+     * valider les paramaitre retourner par la BDD. a implementé
+     *
+     * @param us_cextusr code externe
+     * @param us_datdeb date debut validité de ce compte
+     * @param us_datfin date fin de validité de ce compte
+     * @param us_etatusr etat utilisateur
+     * @param us_langue langue utilisateur
+     * @param us_prnusr0
+     * @param us_lastprg dernier programme modifiant l entré dans la bdd
+     * @param us_lastuser dernier utilisateur
+     * @param us_nivacc niveau d accees
+     * @param us_nomusr nom
+     * @param us_prnusr prenom
+     * @param us_pwdusr mot de passe
+     * @param us_typusr type utilisateur
+     * @param us_username nom d'utilisateur / de compte
+     * @return
+     */
+    protected boolean isFineParam(String us_username, String us_pwdusr, String us_cextusr, String us_nomusr, String us_prnusr, String us_prnusr0, Date us_datdeb, Date us_datfin, Long us_etatusr, Long us_langue, Long us_lastuser, Long us_typusr, Long us_lastprg, Long us_nivacc) {
 
         return true;
     }

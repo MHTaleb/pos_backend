@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- *
+ * jpa repository pour la gestion des application
  * @author taleb
  */
 @Repository
